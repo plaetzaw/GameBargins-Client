@@ -17,7 +17,7 @@ const Home = () => {
     }
   }
 
-  const onClick = async (e) => {
+  const LoginUser = async (e) => {
     e.preventDefault()
     const LoginObj = {
       email: email,
@@ -25,6 +25,13 @@ const Home = () => {
     }
     const request = await axios.post('http://localhost:8080/login', LoginObj)
     console.log(request)
+    const UserObj = {
+      id: request.data.user.id,
+      username: request.data.user.name,
+      email: request.data.user.email
+    }
+    setUser(UserObj)
+    console.log(UserObj)
   }
 
   return (
@@ -58,7 +65,7 @@ const Home = () => {
             value={password}
             onChange={(e) => { setPassword(e.target.value) }}
           />
-          <button onClick={onClick}>Submit</button>
+          <button onClick={LoginUser}>Submit</button>
         </form>
       </div>
 
