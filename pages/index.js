@@ -1,15 +1,13 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from './components/organisms/UserContext'
 import axios from 'axios'
 import Head from 'next/head'
 
 const Home = () => {
-  const { value, setValue } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   // const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  // console.log(user)
 
   const Login = async () => {
     return {
@@ -30,9 +28,10 @@ const Home = () => {
     const UserObj = {
       id: request.data.user.id,
       username: request.data.user.name,
-      email: request.data.user.email
+      email: request.data.user.email,
+      token: request.data.token
     }
-    // setUser(UserObj)
+    setUser(UserObj)
     console.log(UserObj)
   }
 
@@ -47,6 +46,7 @@ const Home = () => {
 
       <h1>Home</h1>
       <div>
+        <pre>{JSON.stringify(user, null, 2)}</pre>
         <form>
           <input
             value={email}
@@ -59,12 +59,19 @@ const Home = () => {
           <button onClick={LoginUser}>Submit</button>
         </form>
       </div>
-      <input
-        value={value}
-        onChange={(e) => { setValue(e.target.value) }}
-      />
-      <button onClick={() => { setValue('new value') }}>Change Me</button>
-      {value}
+      <br />
+      <br />
+      <br />
+      <button onClick={async () => {
+        const user = await Login()
+        setUser(user)
+      }}
+      >Manual Login
+      </button>
+      <br />
+      <br />
+      <br />
+      {user && <button onClick={() => { setUser(null) }}>Logout</button>}
 
     </div>
   )

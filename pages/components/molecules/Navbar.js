@@ -1,16 +1,15 @@
 import Link from 'next/link'
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 
 const Navbar = () => {
-  const { value, setValue } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
     <nav>
       <ul>
         <li>
-          <div>{value}</div>
-          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+          <pre>{JSON.stringify(user, null, 2)}</pre>
         </li>
         <li>
           <Link href='/'>Home</Link>

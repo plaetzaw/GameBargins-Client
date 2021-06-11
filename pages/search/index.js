@@ -1,10 +1,14 @@
-import Link from 'next/link'
+import { useContext } from 'react'
+import { UserContext } from '../components/organisms/UserContext'
 
 const Search = () => {
+  const { user } = useContext(UserContext)
+
   return (
-    <>
-      Search Page
-    </>
+    <div>
+      <h1>Search Page</h1>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+    </div>
   )
 }
 

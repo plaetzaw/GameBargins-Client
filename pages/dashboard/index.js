@@ -1,15 +1,15 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../components/organisms/UserContext'
-import Head from 'next/head'
+// import Head from 'next/head
 
 const Dashboard = () => {
-  const { value, setValue } = useContext(UserContext)
-  const [user, setUser] = useState(null)
+  const { user } = useContext(UserContext)
   return (
     <>
       <h1>Dashboard Page</h1>
-      {value}
       <br />
+
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </>
   )
 }
