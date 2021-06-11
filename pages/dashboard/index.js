@@ -3,14 +3,13 @@ import { UserContext } from '../components/organisms/UserContext'
 import Head from 'next/head'
 
 const Dashboard = () => {
-  const msg = useContext(UserContext)
+  const { value, setValue } = useContext(UserContext)
   const [user, setUser] = useState(null)
   return (
     <>
       <h1>Dashboard Page</h1>
-      {msg}
+      {value}
       <br />
-      {/* {user} */}
     </>
   )
 }

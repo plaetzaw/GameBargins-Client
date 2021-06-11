@@ -11,13 +11,14 @@ body {
 `
 
 function MyApp ({ Component, pageProps }) {
-  const [user, setUser] = useState(null)
-  const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
-  console.log(user)
+  const [value, setValue] = useState('hello from context')
+  // const [user, setUser] = useState(null)
+  // const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
+  // console.log(user)
 
   return (
     <>
-      <UserContext.Provider value={uservalue}>
+      <UserContext.Provider value={{ value, setValue }}>
         <Navbar />
         <Component {...pageProps} />
         <GlobalStyle />

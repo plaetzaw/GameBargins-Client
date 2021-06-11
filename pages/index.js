@@ -4,11 +4,12 @@ import axios from 'axios'
 import Head from 'next/head'
 
 const Home = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { value, setValue } = useContext(UserContext)
+  // const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  console.log(user)
+  // console.log(user)
 
   const Login = async () => {
     return {
@@ -31,7 +32,7 @@ const Home = () => {
       username: request.data.user.name,
       email: request.data.user.email
     }
-    setUser(UserObj)
+    // setUser(UserObj)
     console.log(UserObj)
   }
 
@@ -46,16 +47,6 @@ const Home = () => {
 
       <h1>Home</h1>
       <div>
-        <br />
-        <button onClick={async () => {
-          const user = await Login()
-          setUser(user)
-        }}
-        >swap
-        </button>
-      </div>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <div>
         <form>
           <input
             value={email}
@@ -66,10 +57,14 @@ const Home = () => {
             onChange={(e) => { setPassword(e.target.value) }}
           />
           <button onClick={LoginUser}>Submit</button>
-          <button onClick={setUser(null)}>Logout</button>
-          {user && <div>'Hey you're logged in'</div>}
         </form>
       </div>
+      <input
+        value={value}
+        onChange={(e) => { setValue(e.target.value) }}
+      />
+      <button onClick={() => { setValue('new value') }}>Change Me</button>
+      {value}
 
     </div>
   )

@@ -3,13 +3,14 @@ import React, { useState, useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 
 const Navbar = () => {
-  const { user } = useState(UserContext)
+  const { value, setValue } = useContext(UserContext)
 
   return (
     <nav>
       <ul>
         <li>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
+          <div>{value}</div>
+          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         </li>
         <li>
           <Link href='/'>Home</Link>
