@@ -12,11 +12,12 @@ body {
 
 function MyApp ({ Component, pageProps }) {
   const [user, setUser] = useState(null)
-  const value = useMemo(() => ([user, setUser]), [user, setUser])
+  const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
+  console.log(user)
 
   return (
     <>
-      <UserContext.Provider value={value}>
+      <UserContext.Provider value={uservalue}>
         <Navbar />
         <Component {...pageProps} />
         <GlobalStyle />

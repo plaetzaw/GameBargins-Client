@@ -4,10 +4,11 @@ import axios from 'axios'
 import Head from 'next/head'
 
 const Home = () => {
-  const msg = useContext(UserContext)
-  const [user, setUser] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+  const { user, setUser } = useContext(UserContext)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  console.log(user)
 
   const Login = async () => {
     return {
@@ -45,9 +46,7 @@ const Home = () => {
 
       <h1>Home</h1>
       <div>
-        {msg}
         <br />
-        <pre>{JSON.stringify(user, null, 2)}</pre>
         <button onClick={async () => {
           const user = await Login()
           setUser(user)
@@ -55,6 +54,7 @@ const Home = () => {
         >swap
         </button>
       </div>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
       <div>
         <form>
           <input
@@ -66,6 +66,8 @@ const Home = () => {
             onChange={(e) => { setPassword(e.target.value) }}
           />
           <button onClick={LoginUser}>Submit</button>
+          <button onClick={setUser(null)}>Logout</button>
+          {user && <div>'Hey you're logged in'</div>}
         </form>
       </div>
 
