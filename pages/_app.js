@@ -13,7 +13,7 @@ body {
 function MyApp ({ Component, pageProps }) {
   const [user, setUser] = useState(null)
   // const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
-  console.log(user)
+  // console.log(user)
 
   return (
     <>
