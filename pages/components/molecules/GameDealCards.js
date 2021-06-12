@@ -1,22 +1,45 @@
-import { useEffect } from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
 
-const GameDealCards = ({ provider }) => {
-  useEffect(() => {
-    try {
-      const url = 'http://localhost:8080/getDeals'
-      axios.post(url, { storeID: provider }).then(result => {
-        console.log(result)
-      })
-    } catch (e) {
-      console.log(e)
-    }
-  }, [provider])
-  return (
-    <>
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+`
+const Card = styled.div`
+    display: flex;
+    flex-direction: column;
+    border: 2px solid;
+    padding: 1em;
+    width: 300px;
+    height: 300px;
+`
+const Title = styled.h3`
+    text-align: center;
+`
 
-    </>
+const Logo = styled.img`
+    display: flex;
+    max-width: 100px;
+    min-height: 50px; 
+
+`
+
+const GameDealCards = ({ deals }) => {
+  console.log(deals)
+  const Markup = deals.data.map((game) => {
+    return (
+      <Card key={game.gameID}>
+        <Title>{game.title}</Title>
+        <Logo src={game.thumb} />
+      </Card>
+    )
+  })
+  return (
+    <Container>
+      {Markup}
+    </Container>
   )
 }
 

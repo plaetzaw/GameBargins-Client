@@ -7,33 +7,40 @@ import GamesCard from '../components/molecules/GameDealCards'
 
 const Dashboard = () => {
   const [stores, setStores] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [deals, setDeals] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [provider, setProvider] = useState(1)
   const { user } = useContext(UserContext)
 
   console.log(provider)
 
-  useEffect(() => {
+  useEffect(async () => {
     try {
-      const url = 'http://localhost:8080/getStores'
-      axios.post(url).then(result => {
-        console.log(result)
-        setStores(result)
-        setIsLoading(false)
+      console.log(provider)
+      const storeURL = 'http://localhost:8080/getStores'
+      const dealsURL = 'http://localhost:8080/getDeals'
+      const storelist = await axios.post(storeURL)
+      const dealslist = await axios.post(dealsURL, { storeID: provider })
+      console.log(storelist)
+      console.log(dealslist)
+      setStores(storelist)
+      setDeals(dealslist)
+      if (stores && deals) {
+        setLoading(false)
         setError(false)
-      })
+      }
     } catch (e) {
       setError(e)
     }
-  }, [])
+  }, [provider])
   return (
     <>
       {error && <div><h1>{error}</h1></div>}
-      {isLoading && <div><h1>LOADING...</h1></div>}
+      {loading && <div><h1>LOADING...</h1></div>}
       <h1>Dashboard Page</h1>
       {stores && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
-      {stores && <GamesCard provider={provider} />}
+      {stores && !loading && <GamesCard deals={deals} />}
       <br />
 
     </>
