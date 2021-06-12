@@ -22,10 +22,10 @@ const Dashboard = () => {
       const dealsURL = 'http://localhost:8080/getDeals'
       const storelist = await axios.post(storeURL)
       const dealslist = await axios.post(dealsURL, { storeID: provider })
-      console.log(storelist)
-      console.log(dealslist)
-      setStores(storelist)
+      console.log('here are the stores', storelist)
+      console.log('current deals', provider, dealslist)
       setDeals(dealslist)
+      setStores(storelist)
       if (stores && deals) {
         setLoading(false)
         setError(false)
