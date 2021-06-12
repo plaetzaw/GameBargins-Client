@@ -1,27 +1,48 @@
+import { useState } from 'react'
+import styled from 'styled-components'
 
-const StoreCard = ({ stores }) => {
-  console.log(stores)
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`
+const Card = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border: 2px solid;
+`
+const Title = styled.h3`
+    text-align: center;
+`
+const Logo = styled.img`
+    max-width: 150px;
+`
+
+const StoreCard = ({ stores, provider, setProvider }) => {
+//   const [provider, setProvider] = useState(1)
+
+  const NewStore = (store) => {
+    setProvider(store)
+    console.log(provider)
+  }
+
   const Markup = stores.data.map((store) => {
     return (
-      <div key={store.storeID}>
-        {store.storeID}
-        <br />
-        {store.storeName}
-        <br />
-        'Banner'<img src={`https://www.cheapshark.com/${store.images.banner}`} />
-        <br />
-        'Icon'<img src={`https://www.cheapshark.com/${store.images.icon}`} />
-        <br />
-        'Logo'<img src={`https://www.cheapshark.com/${store.images.logo}`} />
-      </div>
+      <Card key={store.storeID}>
+        <Title>{store.storeName}</Title>
+        {/* 'Icon'<img src={`https://www.cheapshark.com/${store.images.icon}`} /> */}
+        {/* 'Banner'<img src={`https://www.cheapshark.com/${store.images.banner}`} /> */}
+        <Logo src={`https://www.cheapshark.com/${store.images.logo}`} />
+        <button onClick={(e) => { NewStore(store.storeID) }}>See Deals</button>
+      </Card>
     )
   })
-  console.log(Markup)
 
   return (
-    <>
+    <Container>
       {Markup}
-    </>
+    </Container>
   )
 }
 
