@@ -67,9 +67,6 @@ const SaveToFavorites = async (game, user) => {
 
 const GameDealCards = ({ deals }) => {
   const { user } = useContext(UserContext)
-  console.log(user)
-
-  console.log(deals)
   const Markup = deals.data.map((game) => {
     return (
       <Card key={game.gameID}>

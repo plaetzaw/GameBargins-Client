@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
-import { UserContext } from '../components/organisms/UserContext'
+import { useState, useEffect } from 'react'
+// import { UserContext } from '../components/organisms/UserContext'
 import axios from 'axios'
 import StoreCard from '../components/molecules/StoreCard'
 import GamesCard from '../components/molecules/GameDealCards'
@@ -11,9 +11,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [provider, setProvider] = useState(1)
-  const { user } = useContext(UserContext)
+  // const { user } = useContext(UserContext)
 
-  console.log(provider)
+  // console.log(provider)
 
   useEffect(async () => {
     try {

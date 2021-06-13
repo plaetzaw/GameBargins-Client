@@ -19,8 +19,6 @@ const Logo = styled.img`
 `
 
 const StoreCard = ({ stores, provider, setProvider }) => {
-//   const [provider, setProvider] = useState(1)
-
   const NewStore = (store) => {
     setProvider(store)
     console.log(provider)
