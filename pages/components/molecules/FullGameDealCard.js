@@ -9,7 +9,7 @@ const DeleteFavorite = async (id, favorites, setFavorites) => {
   // keep running into data becomes undefined with this method
   const newFavorites = favorites.filter(favorite => (favorite.id !== id))
   console.log('Updated favorites', newFavorites)
-//   setFavorites(newFavorites)
+  setFavorites(newFavorites)
 }
 
 const FullGameCard = ({ favorites, setFavorites }) => {

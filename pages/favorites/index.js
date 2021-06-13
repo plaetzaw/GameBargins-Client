@@ -22,13 +22,16 @@ const FavoritesPage = () => {
         setLoading(false)
         setError(false)
       }
+      console.log('the array length is', favorites.length)
       console.log('here are your favorites', favorites)
     } catch (e) {
       console.error(e)
       setError(error)
     }
     // I want to pass in favorites to this but it causes an infinte rerender
-  }, [])
+  }, [favorites.length])
+
+  console.log('the array length is', favorites.length)
 
   return (
     <div>
