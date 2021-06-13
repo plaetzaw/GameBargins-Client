@@ -17,16 +17,25 @@ const Dashboard = () => {
 
   useEffect(async () => {
     try {
-      console.log(provider)
+      console.log('current provider', provider)
       const storeURL = 'http://localhost:8080/getStores'
       const dealsURL = 'http://localhost:8080/getDeals'
-      const storelist = await axios.post(storeURL)
-      const dealslist = await axios.post(dealsURL, { storeID: provider })
-      console.log('here are the stores', storelist)
-      console.log('current deals', provider, dealslist)
-      setDeals(dealslist)
-      setStores(storelist)
-      if (stores && deals) {
+      const pagedata = await Promise.all([
+        axios.post(storeURL),
+        axios.post(dealsURL, { storeID: provider })
+      ])
+      const setdata = await Promise.all([
+        setStores(pagedata[0]), setDeals(pagedata[1])
+      ])
+      // setStores(pagedata[0])
+      // setDeals(pagedata[1])
+      console.log('here are the stores', pagedata[0])
+      console.log('current deals', provider, pagedata[1])
+      // if (deals && stores) {
+      //   setLoading(false)
+      //   setError(false)
+      // }
+      if (setdata) {
         setLoading(false)
         setError(false)
       }
