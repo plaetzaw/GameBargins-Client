@@ -42,6 +42,8 @@ const GameDealCards = ({ deals }) => {
       <Card key={game.gameID}>
         <Title>{game.title}</Title>
         <Logo src={game.thumb} />
+        <Title>Current Price: ${game.salePrice} down from ${game.normalPrice}</Title>
+
         <Title>Deal Rating: {game.dealRating}/10.0</Title>
         <Title onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Title>
         <Title onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Title>
