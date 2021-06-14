@@ -1,12 +1,15 @@
 import { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../components/organisms/UserContext'
 import axios from 'axios'
 import styled from 'styled-components'
+import { Whirly } from 'css-spinners-react'
+// import Head from 'next/head
+
+// Atoms
+import { UserContext } from '../components/organisms/UserContext'
+
+// Molecules
 import StoreCard from '../components/molecules/StoreCard'
 import GamesCard from '../components/molecules/GameDealCards'
-import { Whirly } from 'css-spinners-react'
-
-// import Head from 'next/head
 
 const Spinner = styled.div`
 display: flex;
