@@ -1,9 +1,19 @@
 import { useContext, useState, useEffect } from 'react'
-import { UserContext } from '../components/organisms/UserContext'
+import { Whirly } from 'css-spinners-react'
 import axios from 'axios'
+import styled from 'styled-components'
+
+// atoms
+import { UserContext } from '../components/organisms/UserContext'
 
 // molecules
 import FullGameCard from '../components/molecules/FullGameDealCard'
+
+const Spinner = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
 
 const FavoritesPage = () => {
   const { user } = useContext(UserContext)
@@ -40,7 +50,7 @@ const FavoritesPage = () => {
   return (
     <div>
       {error && <div><h1>{error}</h1></div>}
-      {loading && <div><h1>LOADING...</h1></div>}
+      {loading ? (<Spinner><Whirly /></Spinner>) : (null)}
       <h1>Favorites page</h1>
       {!favorites && <div>To access your favorites, please log-in!</div>}
       {favorites && !loading && <FullGameCard favorites={favorites} setFavorites={setFavorites} />}

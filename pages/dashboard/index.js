@@ -1,9 +1,18 @@
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../components/organisms/UserContext'
 import axios from 'axios'
+import styled from 'styled-components'
 import StoreCard from '../components/molecules/StoreCard'
 import GamesCard from '../components/molecules/GameDealCards'
+import { Whirly } from 'css-spinners-react'
+
 // import Head from 'next/head
+
+const Spinner = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
 
 const Dashboard = () => {
   const [stores, setStores] = useState(null)
@@ -45,8 +54,9 @@ const Dashboard = () => {
   }, [provider])
   return (
     <>
+
       {error && <div><h1>{error}</h1></div>}
-      {loading && <div><h1>LOADING...</h1></div>}
+      {loading ? (<Spinner><Whirly /></Spinner>) : (null)}
       <h1>Dashboard Page</h1>
       {stores && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
       {stores && !loading && <GamesCard deals={deals} />}

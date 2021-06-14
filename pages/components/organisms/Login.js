@@ -2,15 +2,28 @@ import { useState, useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import styled from 'styled-components'
+import { Whirly } from 'css-spinners-react'
+
+const Container = styled.div`
+display: flex;
+`
+const Spinner = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
 
 const Login = () => {
   const { user, setUser } = useContext(UserContext)
+  const [loadinguser, setLoadingUser] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
 
   const LoginUser = async (e) => {
     e.preventDefault()
+    setLoadingUser(true)
     const LoginObj = {
       email: email,
       password: password
@@ -24,12 +37,14 @@ const Login = () => {
       token: request.data.token
     }
     setUser(UserObj)
-    console.log(UserObj)
     router.push('/dashboard')
+    setLoadingUser(false)
   }
   return (
-    <>
+    <Container>
       <h1>Login</h1>
+
+      {setLoadingUser ? (null) : (<Spinner><Whirly />Logging in</Spinner>)}
 
       <form>
         <input
@@ -47,7 +62,7 @@ const Login = () => {
       </form>
 
       {/* {user && <button onClick={() => { setUser(null) }}>Logout</button>} */}
-    </>
+    </Container>
   )
 }
 
