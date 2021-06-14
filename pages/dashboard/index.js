@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-// import { UserContext } from '../components/organisms/UserContext'
+import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../components/organisms/UserContext'
 import axios from 'axios'
 import StoreCard from '../components/molecules/StoreCard'
 import GamesCard from '../components/molecules/GameDealCards'

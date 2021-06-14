@@ -3,13 +3,13 @@ import React, { useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 
 const Navbar = () => {
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   return (
     <nav>
       <ul>
         <li>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
+          {user && <pre>Welcome {user.username}!</pre>}
         </li>
         <li>
           <Link href='/'>Home</Link>
@@ -23,6 +23,7 @@ const Navbar = () => {
         <li>
           <Link href='/search'>Search</Link>
         </li>
+        <li>{user && <button onClick={() => { setUser(null) }}>Logout</button>}</li>
       </ul>
     </nav>
   )

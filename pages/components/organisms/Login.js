@@ -20,8 +20,8 @@ const Login = () => {
     const UserObj = {
       id: request.data.user.id,
       username: request.data.user.name,
-      email: request.data.user.email
-    //   token: request.data.token
+      email: request.data.user.email,
+      token: request.data.token
     }
     setUser(UserObj)
     console.log(UserObj)

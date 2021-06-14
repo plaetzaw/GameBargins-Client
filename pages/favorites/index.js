@@ -13,6 +13,10 @@ const FavoritesPage = () => {
 
   useEffect(async () => {
     try {
+      console.log(user)
+      if (!user) {
+        setError('Please log-in to view your favorites')
+      }
       const url = 'http://localhost:8080/viewFavorites'
       const results = await axios.post(url, { userID: user.id })
       setFavorites(results.data)
@@ -28,7 +32,7 @@ const FavoritesPage = () => {
       console.error(e)
       setError(error)
     }
-    // I want to pass in favorites to this but it causes an infinte rerender
+    // Passing the length of the array, instead of the array itself, this prevents infinite re-renders
   }, [favorites.length])
 
   console.log('the array length is', favorites.length)
@@ -38,7 +42,7 @@ const FavoritesPage = () => {
       {error && <div><h1>{error}</h1></div>}
       {loading && <div><h1>LOADING...</h1></div>}
       <h1>Favorites page</h1>
-      {/* <pre>{JSON.stringify(favorites.data, null, 2)}</pre> */}
+      {!favorites && <div>To access your favorites, please log-in!</div>}
       {favorites && !loading && <FullGameCard favorites={favorites} setFavorites={setFavorites} />}
     </div>
 

@@ -7,7 +7,7 @@ import Register from './components/organisms/Register'
 
 const Home = () => {
   const { user } = useContext(UserContext)
-
+  // I'll render the introtext component alone when removing the login and register
   return (
     <div>
 
@@ -18,9 +18,7 @@ const Home = () => {
       </Head>
 
       <h1>Home</h1>
-      <Login />
-      <br />
-      <Register />
+      {!user ? (<><Login /> <Register /></>) : null}
 
     </div>
   )
