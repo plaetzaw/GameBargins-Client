@@ -1,12 +1,24 @@
-// import styled from 'styled-components'
+import styled from 'styled-components'
 import axios from 'axios'
+
+const Container = styled.div`
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+`
+
+const Card = styled.div`
+    display: flex;
+    flex-direction: column;
+    border: 2px solid;
+    width: 150px;
+    height: 75px;
+`
 
 const DeleteFavorite = async (id, favorites, setFavorites) => {
   console.log(id)
   const res = await axios.post('http://localhost:8080/deleteFavorite', { id: id })
+  // We'll use the res to trigger a snackbar later
   console.log(res)
-  // I wanted to update the local state instead of pinging the database, but I
-  // keep running into data becomes undefined with this method
   const newFavorites = favorites.filter(favorite => (favorite.id !== id))
   console.log('Updated favorites', newFavorites)
   setFavorites(newFavorites)
@@ -15,16 +27,16 @@ const DeleteFavorite = async (id, favorites, setFavorites) => {
 const FullGameCard = ({ favorites, setFavorites }) => {
   const Markup = favorites.map((game) => {
     return (
-      <div key={game.id}>
+      <Card key={game.id}>
         {game.title}
         <button onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete</button>
-      </div>
+      </Card>
     )
   })
   return (
-    <>
+    <Container>
       {Markup}
-    </>
+    </Container>
   )
 }
 

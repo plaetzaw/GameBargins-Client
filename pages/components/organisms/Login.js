@@ -30,6 +30,7 @@ const Login = () => {
   return (
     <>
       <h1>Login</h1>
+
       <form>
         <input
           value={email}
@@ -45,7 +46,7 @@ const Login = () => {
         <button onClick={LoginUser}>Login</button>
       </form>
 
-      {user && <button onClick={() => { setUser(null) }}>Logout</button>}
+      {/* {user && <button onClick={() => { setUser(null) }}>Logout</button>} */}
     </>
   )
 }

@@ -8,6 +8,9 @@ body {
   margin: 0;
   padding: 0;
 }
+ul {
+  list-style-type: none;
+}
 `
 
 function MyApp ({ Component, pageProps }) {
