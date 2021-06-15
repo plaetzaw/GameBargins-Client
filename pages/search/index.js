@@ -8,6 +8,9 @@ import axios from 'axios'
 
 // Atoms
 
+// Organisms
+import SearchResults from '../components/organisms/SearchResults'
+
 const Container = styled.div`
 `
 const SearchControllersContainer = styled.div`
@@ -82,14 +85,13 @@ const options = [
 ]
 
 const Search = () => {
+  const [searchData, setSearchData] = useState([])
+  const [showResults, setShowResults] = useState(false)
   const [searchTitle, setSearchTitle] = useState('')
   const [exactTitle, setExactTitle] = useState(false)
   const [onSale, setOnSale] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 30])
   const [type, setType] = useState({ value: 1, label: 'price' })
-  const [searchData, setSearchData] = useState([])
-
-  console.log(searchData)
 
   const UpdatePrice = (e, price) => {
     setPriceRange(price)
@@ -107,6 +109,7 @@ const Search = () => {
     console.log(SearchObj)
     const res = await axios.post('http://localhost:8080/advancedSearch', SearchObj)
     setSearchData(res.data)
+    setShowResults(true)
     console.log(searchData)
   }
 
@@ -154,13 +157,7 @@ const Search = () => {
       <button onClick={Submit}>Search</button>
 
       <SearchResultsContainer>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
-        <div>Search Results will go here</div>
+        {showResults && <SearchResults searchData={searchData} />}
       </SearchResultsContainer>
     </Container>
   )
