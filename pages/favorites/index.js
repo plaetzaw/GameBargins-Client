@@ -9,6 +9,9 @@ import { UserContext } from '../components/organisms/UserContext'
 // molecules
 import FullGameCard from '../components/molecules/FullGameDealCard'
 
+// organisms
+import Alerts from '../components/organisms/Alerts'
+
 const Spinner = styled.div`
 display: flex;
 align-items: center;

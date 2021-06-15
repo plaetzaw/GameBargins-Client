@@ -1,11 +1,14 @@
-import { useState, useEffect, useContext } from 'react'
+import {
+  useState, useEffect
+  // useContext
+} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Whirly } from 'css-spinners-react'
 // import Head from 'next/head
 
 // Atoms
-import { UserContext } from '../components/organisms/UserContext'
+// import { UserContext } from '../components/organisms/UserContext'
 
 // Molecules
 import StoreCard from '../components/molecules/StoreCard'

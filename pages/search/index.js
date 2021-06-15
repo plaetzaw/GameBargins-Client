@@ -1,4 +1,7 @@
-import { useState, useContext } from 'react'
+import {
+  useState
+  // useContext
+} from 'react'
 // import { UserContext } from '../components/organisms/UserContext'
 import { Slider, Switch } from '@material-ui/core'
 
@@ -104,13 +107,13 @@ const Search = () => {
       onSale: onSale,
       minPrice: priceRange[0],
       maxPrice: priceRange[1],
-      sort: type.value
+      sort: type
     }
-    console.log(SearchObj)
+    console.log('Serach Payload', SearchObj)
     const res = await axios.post('http://localhost:8080/advancedSearch', SearchObj)
     setSearchData(res.data)
     setShowResults(true)
-    console.log(searchData)
+    console.log('Search Data', searchData)
   }
 
   return (
