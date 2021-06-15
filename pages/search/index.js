@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../components/organisms/UserContext'
+// import { UserContext } from '../components/organisms/UserContext'
 import { Slider, Switch } from '@material-ui/core'
 
 import Select from 'react-select'
@@ -83,23 +83,31 @@ const options = [
 
 const Search = () => {
   const [searchTitle, setSearchTitle] = useState('')
-  const [exactTitle, setExactTitle] = useState(true)
+  const [exactTitle, setExactTitle] = useState(false)
+  const [onSale, setOnSale] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 30])
   const [type, setType] = useState({ value: 1, label: 'price' })
-  console.log(type)
-  console.log(options)
+  const [searchData, setSearchData] = useState([])
 
-  const updatePrice = (e, price) => {
+  console.log(searchData)
+
+  const UpdatePrice = (e, price) => {
     setPriceRange(price)
   }
 
-  const updateType = (e, option) => {
-    setType(option)
-    console.log(type)
-  }
-
-  const showMePrice = () => {
-    console.log('What youre searching for', searchTitle, priceRange, type, exactTitle)
+  const Submit = async () => {
+    const SearchObj = {
+      gameTitle: searchTitle,
+      exactTitle: exactTitle,
+      onSale: onSale,
+      minPrice: priceRange[0],
+      maxPrice: priceRange[1],
+      sort: type.value
+    }
+    console.log(SearchObj)
+    const res = await axios.post('http://localhost:8080/advancedSearch', SearchObj)
+    setSearchData(res.data)
+    console.log(searchData)
   }
 
   return (
@@ -118,9 +126,16 @@ const Search = () => {
             name='excat title'
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
+          <Switch
+            value={onSale}
+            onChange={(e) => { setOnSale(!onSale) }}
+            color='secondary'
+            name='excat title'
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
           <Slider
             value={priceRange}
-            onChange={updatePrice}
+            onChange={UpdatePrice}
             marks={marks}
             step={5}
             valueLabelDisplay='on'
@@ -136,7 +151,7 @@ const Search = () => {
 
         </div>
       </SearchControllersContainer>
-      <button onClick={showMePrice}>Show me what I'm searching for</button>
+      <button onClick={Submit}>Search</button>
 
       <SearchResultsContainer>
         <div>Search Results will go here</div>
