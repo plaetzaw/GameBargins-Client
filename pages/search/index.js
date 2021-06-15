@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../components/organisms/UserContext'
-import { Slider } from '@material-ui/core'
+import { Slider, Switch } from '@material-ui/core'
+
 import Select from 'react-select'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -82,6 +83,7 @@ const options = [
 
 const Search = () => {
   const [searchTitle, setSearchTitle] = useState('')
+  const [exactTitle, setExactTitle] = useState(true)
   const [priceRange, setPriceRange] = useState([0, 30])
   const [type, setType] = useState({ value: 1, label: 'price' })
   console.log(type)
@@ -97,7 +99,7 @@ const Search = () => {
   }
 
   const showMePrice = () => {
-    console.log('What youre searching for', searchTitle, priceRange, type)
+    console.log('What youre searching for', searchTitle, priceRange, type, exactTitle)
   }
 
   return (
@@ -108,6 +110,13 @@ const Search = () => {
           <input
             value={searchTitle}
             onChange={(e) => { setSearchTitle(e.target.value) }}
+          />
+          <Switch
+            value={exactTitle}
+            onChange={(e) => { setExactTitle(!exactTitle) }}
+            color='primary'
+            name='excat title'
+            inputProps={{ 'aria-label': 'primary checkbox' }}
           />
           <Slider
             value={priceRange}
