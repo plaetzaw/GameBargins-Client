@@ -21,6 +21,7 @@ justify-content: center;
 const FavoritesPage = () => {
   const { user } = useContext(UserContext)
   const [favorites, setFavorites] = useState([])
+  const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -39,8 +40,8 @@ const FavoritesPage = () => {
         setLoading(false)
         setError(false)
       }
-      console.log('the array length is', favorites.length)
-      console.log('here are your favorites', favorites)
+      // console.log('the array length is', favorites.length)
+      // console.log('here are your favorites', favorites)
     } catch (e) {
       console.error(e)
       setError(error)
@@ -48,7 +49,8 @@ const FavoritesPage = () => {
     // Passing the length of the array, instead of the array itself, this prevents infinite re-renders
   }, [favorites.length])
 
-  console.log('the array length is', favorites.length)
+  // console.log('the array length is', favorites.length)
+  console.log('here are your alerts', alerts)
 
   return (
     <div>
@@ -56,7 +58,9 @@ const FavoritesPage = () => {
       {loading ? (<Spinner><Whirly /></Spinner>) : (null)}
       <h1>Favorites page</h1>
       {!favorites && <div>To access your favorites, please log-in!</div>}
-      {favorites && !loading && <FullGameCard favorites={favorites} setFavorites={setFavorites} />}
+      {favorites.length === 0 && !loading && <div>You have no favorites currently</div>}
+      {favorites.length > 0 && !loading && <FullGameCard favorites={favorites} setFavorites={setFavorites} />}
+      {alerts && !loading && <Alerts alerts={alerts} setAlerts={setAlerts} />}
     </div>
 
   )

@@ -1,5 +1,5 @@
 
-const Alerts = () => {
+const Alerts = ({ alerts, setAlerts }) => {
   return (
     <>
       User Alerts
