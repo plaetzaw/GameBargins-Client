@@ -37,7 +37,7 @@ const Dashboard = () => {
         axios.post(dealsURL, { storeID: provider })
       ])
       const setdata = await Promise.all([
-        setStores(pagedata[0]), setDeals(pagedata[1])
+        setStores(pagedata[0].data), setDeals(pagedata[1].data)
       ])
       // setStores(pagedata[0])
       // setDeals(pagedata[1])

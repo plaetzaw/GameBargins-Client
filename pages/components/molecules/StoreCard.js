@@ -27,7 +27,7 @@ const StoreCard = ({ stores, provider, setProvider }) => {
     console.log(provider)
   }
 
-  const Markup = stores.data.map((store) => {
+  const Markup = stores.map((store) => {
     return (
       <Card key={store.storeID}>
         <Title>{store.storeName}</Title>

@@ -67,9 +67,9 @@ const SaveToFavorites = async (game, user) => {
 
 const GameDealCards = ({ deals }) => {
   const { user } = useContext(UserContext)
-  const Markup = deals.data.map((game) => {
+  const Markup = deals.map((game) => {
     return (
-      <Card key={game.gameID}>
+      <Card key={game.dealID}>
         <Title>{game.title}</Title>
         <Logo src={game.thumb} />
         <Title>Current Price: ${game.salePrice} down from ${game.normalPrice}</Title>
@@ -77,7 +77,7 @@ const GameDealCards = ({ deals }) => {
         <Title>Deal Rating: {game.dealRating}/10.0</Title>
         <Title onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Title>
         <Title onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Title>
-        <Title onClick={() => { SaveToFavorites(game, user) }}>Save to Favorites</Title>
+        {user && <Title onClick={() => { SaveToFavorites(game, user) }}>Save to Favorites</Title>}
 
       </Card>
     )
