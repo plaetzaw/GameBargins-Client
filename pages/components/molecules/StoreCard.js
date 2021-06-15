@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+// import Radio from '@material-ui/core/Radio'
+// import RadioGroup from '@material-ui/core/RadioGroup'
+// import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const Container = styled.div`
     display: flex;
@@ -31,6 +34,10 @@ const StoreCard = ({ stores, provider, setProvider }) => {
         {/* 'Icon'<img src={`https://www.cheapshark.com/${store.images.icon}`} /> */}
         {/* 'Banner'<img src={`https://www.cheapshark.com/${store.images.banner}`} /> */}
         <Logo src={`https://www.cheapshark.com/${store.images.logo}`} />
+        {/* <RadioGroup aria-label='gender' name='gender1' onChange={(e) => { NewStore(store.storeID) }}> */}
+        {/* <FormControlLabel value={store.storeID} control={<Radio />} label='Provider' /> */}
+        {/* </RadioGroup> */}
+
         <button onClick={(e) => { NewStore(store.storeID) }}>See Deals</button>
       </Card>
     )

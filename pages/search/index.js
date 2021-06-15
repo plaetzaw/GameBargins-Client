@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../components/organisms/UserContext'
 import { Slider } from '@material-ui/core'
+import Select from 'react-select'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -71,23 +72,43 @@ const marks = [
   }
 ]
 
+const options = [
+  { value: 1, label: 'price' },
+  { value: 2, label: 'title' },
+  { value: 3, label: 'savings' },
+  { value: 4, label: 'deal rating' },
+  { value: 5, label: 'store' }
+]
+
 const Search = () => {
+  const [searchTitle, setSearchTitle] = useState('')
   const [priceRange, setPriceRange] = useState([0, 30])
+  const [type, setType] = useState({ value: 1, label: 'price' })
+  console.log(type)
+  console.log(options)
 
   const updatePrice = (e, price) => {
     setPriceRange(price)
   }
 
+  const updateType = (e, option) => {
+    setType(option)
+    console.log(type)
+  }
+
   const showMePrice = () => {
-    console.log('your current pricerange is', priceRange)
+    console.log('What youre searching for', searchTitle, priceRange, type)
   }
 
   return (
     <Container>
       <h1>Search Page</h1>
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
       <SearchControllersContainer>
         <div style={{ width: '335px', margin: '30px' }}>
+          <input
+            value={searchTitle}
+            onChange={(e) => { setSearchTitle(e.target.value) }}
+          />
           <Slider
             value={priceRange}
             onChange={updatePrice}
@@ -98,9 +119,15 @@ const Search = () => {
             max={60}
             aria-labelledby='discrete-slider-always'
           />
+          <Select
+            options={options}
+            value={options.find(obj => obj.value === type)}
+            onChange={(e) => { setType(e.value) }}
+          />
+
         </div>
       </SearchControllersContainer>
-      <button onClick={showMePrice}>Show me Price</button>
+      <button onClick={showMePrice}>Show me what I'm searching for</button>
 
       <SearchResultsContainer>
         <div>Search Results will go here</div>
