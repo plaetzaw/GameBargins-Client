@@ -27,29 +27,34 @@ const FavoritesPage = () => {
 
   useEffect(async () => {
     try {
-      console.log(user)
       if (!user) {
         setError('Please log-in to view your favorites')
       }
-      const url = 'http://localhost:8080/viewFavorites'
-      const results = await axios.post(url, { userID: user.id })
-      setFavorites(results.data)
+      const getFavorites = 'http://localhost:8080/viewFavorites'
+      const getAlerts = 'http://localhost:8080/getAlerts'
+      // const FavoritesData = await Promise.all([axios.post(getFavorites, { userID: user.id })], axios.post(getAlerts, { userID: user.id }))
+      // const SetFavoritesData = await Promise.all([setFavorites(FavoritesData[0].data)], setAlerts(FavoritesData[1].data))
+      // const results = await axios.post(url, { userID: user.id })
+
+      const Favorites = await axios.post(getFavorites, { userID: user.id })
+      const Alerts = await axios.post(getAlerts, { userID: user.id })
+      Promise.all([setFavorites(Favorites.data), setAlerts(Alerts.data)])
+
       // const myfavorites = await setFavorites(results.data)
       // We may have some async issue here
       if (favorites) {
         setLoading(false)
         setError(false)
       }
-      // console.log('the array length is', favorites.length)
-      // console.log('here are your favorites', favorites)
     } catch (e) {
       console.error(e)
       setError(error)
     }
     // Passing the length of the array, instead of the array itself, this prevents infinite re-renders
-  }, [favorites.length])
+  }, [favorites.length, alerts.length])
 
   // console.log('the array length is', favorites.length)
+  console.log('here are your favorites', favorites)
   console.log('here are your alerts', alerts)
 
   return (
