@@ -1,4 +1,7 @@
+// import { useContext } from 'react'
+// import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const Card = styled.div`
     display: flex;
@@ -7,7 +10,21 @@ const Card = styled.div`
     border: 2px solid;
 `
 
-const Alert = ({ alerts, setAlert }) => {
+const DeleteAlert = async (id, alerts, setAlerts) => {
+  console.log(id)
+  // Delete the alert in the database
+  const res = await axios.post('http://localhost:8080/deleteAlert', { id: id })
+  // We can use the res to set the snackbar later
+  console.log(res)
+  // Delete the alert from the state
+  const newAlerts = alerts.filter(alert => (alert.id !== id))
+  console.log('Updated alerts', newAlerts)
+  setAlerts(newAlerts)
+}
+
+const Alert = ({ alerts, setAlerts }) => {
+  // const { user } = useContext(UserContext)
+
   // the actual alert
 
   const Markup = alerts.map((game) => {
@@ -20,6 +37,7 @@ const Alert = ({ alerts, setAlert }) => {
         Target Price {game.desiredprice}
         <br />
         Price set at {game.setprice}
+        <button onClick={() => { DeleteAlert(game.id, alerts, setAlerts) }}>Delete Alert</button>
       </Card>
     )
   })

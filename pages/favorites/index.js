@@ -63,10 +63,11 @@ const FavoritesPage = () => {
     <div>
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
-      <h1>Favorites page</h1>
+      <h1>Favorites</h1>
       {!favorites && <div>To access your favorites, please log-in!</div>}
       {favorites.length === 0 && !loading && <div>You have no favorites currently</div>}
       {favorites.length > 0 && !loading && <FullGameCard favorites={favorites} setFavorites={setFavorites} />}
+      <h1>Alerts</h1>
       {alerts && !loading && <Alerts alerts={alerts} setAlerts={setAlerts} />}
     </div>
 

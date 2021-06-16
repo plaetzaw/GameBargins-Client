@@ -11,7 +11,7 @@ const Alerts = ({ alerts, setAlerts }) => {
   // this will render the alerts
   return (
     <Container>
-      <AlertCard alerts={alerts} />
+      <AlertCard alerts={alerts} setAlerts={setAlerts} />
     </Container>
   )
 }

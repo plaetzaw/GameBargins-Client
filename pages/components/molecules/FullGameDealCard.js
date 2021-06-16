@@ -28,17 +28,21 @@ const CardItem = styled.div`
 
 const DeleteFavorite = async (id, favorites, setFavorites) => {
   console.log(id)
+  // Delete the favorite in the database
   const res = await axios.post('http://localhost:8080/deleteFavorite', { id: id })
   // We'll use the res to trigger a snackbar later
   console.log(res)
+  // Delete the favorite from the state
   const newFavorites = favorites.filter(favorite => (favorite.id !== id))
   console.log('Updated favorites', newFavorites)
   setFavorites(newFavorites)
 }
 
-const IBoughtIt = async (game, user, setUser) => {
+const IBoughtIt = async (game, user, setUser, favorites, setFavorites) => {
   console.log(user)
+  // Computes the actual savings, the API provided one seems to have issues
   const savings = game.normalPrice - game.salePrice
+  // Updates the Global state for savings
   setUser(user => {
     return Object.assign({}, user, { savings: (user.savings + savings) })
   })
@@ -46,8 +50,11 @@ const IBoughtIt = async (game, user, setUser) => {
     email: user.email,
     savings: savings
   }
+  // Updates the database value for savings
   const updateSavings = await axios.post('http://localhost:8080/updateSavings', UserObj)
   console.log(updateSavings)
+  // Removes the item from the favorites since the user has bought the game
+  DeleteFavorite(game.id, favorites, setFavorites)
 }
 
 const FullGameCard = ({ favorites, setFavorites }) => {
@@ -64,8 +71,8 @@ const FullGameCard = ({ favorites, setFavorites }) => {
         {(game.metacriticLink !== null) && <CardItem> Metacritic Score {game.metacriticScore} / 100</CardItem>}
         {(game.metacriticLink !== null) && <CardItem>View on MetaCritic {game.metacriticLink}</CardItem>}
         {(game.steamCheckerBool === true) && <CardItem>Steam Rating of {game.steamRatingPercent} and {game.steamRatingText} reviews based on {game.steamRatingCount} reviews</CardItem>}
-        <button onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete</button>
-        <button onClick={() => { IBoughtIt(game, user, setUser) }}>I bought it</button>
+        <button onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Remove from Favorites</button>
+        <button onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</button>
       </Card>
     )
   })
