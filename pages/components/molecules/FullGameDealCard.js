@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -40,8 +40,14 @@ const IBoughtIt = async (game, user, setUser) => {
   console.log(user)
   const savings = game.normalPrice - game.salePrice
   setUser(user => {
-    return Object.assign({}, user, { savings: savings })
+    return Object.assign({}, user, { savings: (user.savings + savings) })
   })
+  const UserObj = {
+    email: user.email,
+    savings: savings
+  }
+  const updateSavings = await axios.post('http://localhost:8080/updateSavings', UserObj)
+  console.log(updateSavings)
 }
 
 const FullGameCard = ({ favorites, setFavorites }) => {
