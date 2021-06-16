@@ -1,5 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
-import { Whirly } from 'css-spinners-react'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+// import { Whirly } from 'css-spinners-react'
 import axios from 'axios'
 import styled from 'styled-components'
 
@@ -60,7 +62,7 @@ const FavoritesPage = () => {
   return (
     <div>
       {error && <div><h1>{error}</h1></div>}
-      {loading ? (<Spinner><Whirly /></Spinner>) : (null)}
+      {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <h1>Favorites page</h1>
       {!favorites && <div>To access your favorites, please log-in!</div>}
       {favorites.length === 0 && !loading && <div>You have no favorites currently</div>}

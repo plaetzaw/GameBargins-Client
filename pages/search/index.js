@@ -15,14 +15,22 @@ import axios from 'axios'
 import SearchResults from '../components/organisms/SearchResults'
 
 const Container = styled.div`
+padding: 1em;
+// display: flex;
+// flex-direction: column;
 `
 const SearchControllersContainer = styled.div`
-    display: flex;
+  display: flex;
+  flex-direction: row;
 `
 
 const SearchResultsContainer = styled.div`
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  // border: 2px solid;
+    // display: grid;
+    // grid-template-columns: 25% 25% 25% 25%;
 `
 const marks = [
   {

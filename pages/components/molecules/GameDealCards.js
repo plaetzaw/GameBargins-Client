@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -11,6 +11,7 @@ const Container = styled.div`
     align-content: center;
 `
 const Card = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -31,11 +32,35 @@ const Logo = styled.img`
     max-width: 150px;
     max-height: 100px; 
 `
+const Widget = styled.div`
+  // position: absolute;
+  // bottom: 50em;
+
+`
+
 const OpenMetacritic = (metacritic) => {
   window.open(`https://www.metacritic.com${metacritic}`)
 }
 const OpenDeal = (dealID) => {
   window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`)
+}
+
+const SetPriceAlert = (game, user, targetPrice, ToggleWidget) => {
+  console.log(game)
+  const PriceAlertObj = {
+    userID: user.id,
+    email: user.email,
+    gameID: game.gameID,
+    price: targetPrice,
+    title: game.title,
+    setprice: game.salePrice
+  }
+  console.log(PriceAlertObj)
+  ToggleWidget(game.dealID)
+}
+
+const ClosePriceAlert = () => {
+
 }
 
 const SaveToFavorites = async (game, user) => {
@@ -66,7 +91,23 @@ const SaveToFavorites = async (game, user) => {
 }
 
 const GameDealCards = ({ deals }) => {
+  const [widget, setWidget] = useState([])
+  const [targetPrice, setTargetPrice] = useState(0)
   const { user } = useContext(UserContext)
+
+  const ToggleWidget = (id) => {
+    console.log(id)
+    if (widget.includes(id) === false) {
+      setWidget([...widget, id])
+      console.log('The open array items are', widget)
+    } else {
+      // find the position of this integer
+      const idposition = widget.indexOf(id)
+      setWidget(widget.filter((_, i) => i !== idposition))
+      console.log('The open array items are', widget)
+    }
+  }
+
   const Markup = deals.map((game) => {
     return (
       <Card key={game.dealID}>
@@ -78,6 +119,8 @@ const GameDealCards = ({ deals }) => {
         <Title onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Title>
         <Title onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Title>
         {user && <Title onClick={() => { SaveToFavorites(game, user) }}>Save to Favorites</Title>}
+        {user && <Title onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</Title>}
+        {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
 
       </Card>
     )

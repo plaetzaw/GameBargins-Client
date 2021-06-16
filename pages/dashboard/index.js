@@ -4,7 +4,9 @@ import {
 } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import { Whirly } from 'css-spinners-react'
+// import { Whirly } from 'css-spinners-react'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 // import Head from 'next/head
 
 // Atoms
@@ -62,7 +64,7 @@ const Dashboard = () => {
     <>
 
       {error && <div><h1>{error}</h1></div>}
-      {loading ? (<Spinner><Whirly /></Spinner>) : (null)}
+      {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <h1>Dashboard Page</h1>
       {stores && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
       {stores && !loading && <GamesCard deals={deals} />}
