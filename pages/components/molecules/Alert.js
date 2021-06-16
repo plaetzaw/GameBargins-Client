@@ -1,5 +1,5 @@
-// import { useContext } from 'react'
-// import { UserContext } from '../organisms/UserContext'
+import { useContext } from 'react'
+import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -10,20 +10,27 @@ const Card = styled.div`
     border: 2px solid;
 `
 
-const DeleteAlert = async (id, alerts, setAlerts) => {
-  console.log(id)
+const DeleteAlert = async (game, user, alerts, setAlerts) => {
+  console.log(game.id)
   // Delete the alert in the database
-  const res = await axios.post('http://localhost:8080/deleteAlert', { id: id })
+  const DeleteAlertObj = {
+    id: game.id,
+    email: user.email,
+    gameID: game.gameID,
+    desiredprice: game.desiredprice
+  }
+  console.log(DeleteAlertObj)
+  const res = await axios.post('http://localhost:8080/deleteAlert', DeleteAlertObj)
   // We can use the res to set the snackbar later
   console.log(res)
   // Delete the alert from the state
-  const newAlerts = alerts.filter(alert => (alert.id !== id))
+  const newAlerts = alerts.filter(alert => (alert.id !== game.id))
   console.log('Updated alerts', newAlerts)
   setAlerts(newAlerts)
 }
 
 const Alert = ({ alerts, setAlerts }) => {
-  // const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   // the actual alert
 
@@ -37,7 +44,7 @@ const Alert = ({ alerts, setAlerts }) => {
         Target Price {game.desiredprice}
         <br />
         Price set at {game.setprice}
-        <button onClick={() => { DeleteAlert(game.id, alerts, setAlerts) }}>Delete Alert</button>
+        <button onClick={() => { DeleteAlert(game, user, alerts, setAlerts) }}>Delete Alert</button>
       </Card>
     )
   })
