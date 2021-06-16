@@ -45,7 +45,7 @@ const OpenDeal = (dealID) => {
   window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`)
 }
 
-const SetPriceAlert = (game, user, targetPrice, ToggleWidget) => {
+const SetPriceAlert = async (game, user, targetPrice, ToggleWidget) => {
   console.log(game)
   const PriceAlertObj = {
     userID: user.id,
@@ -56,11 +56,9 @@ const SetPriceAlert = (game, user, targetPrice, ToggleWidget) => {
     setprice: game.salePrice
   }
   console.log(PriceAlertObj)
+  const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
+  console.log(postalert)
   ToggleWidget(game.dealID)
-}
-
-const ClosePriceAlert = () => {
-
 }
 
 const SaveToFavorites = async (game, user) => {
