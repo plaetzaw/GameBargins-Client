@@ -11,7 +11,7 @@ const Alerts = ({ alerts, setAlerts }) => {
   // this will render the alerts
   return (
     <Container>
-      <AlertCard alerts={alerts} setAlerts={setAlerts} />
+      {alerts.length > 0 ? (<AlertCard alerts={alerts} setAlerts={setAlerts} />) : (<div>You have no alerts currently</div>)}
     </Container>
   )
 }
