@@ -90,7 +90,7 @@ const SaveToFavorites = async (game, user) => {
 
 const GameDealCards = ({ deals }) => {
   const [widget, setWidget] = useState([])
-  const [targetPrice, setTargetPrice] = useState(0)
+  const [targetPrice, setTargetPrice] = useState()
   const { user } = useContext(UserContext)
 
   const ToggleWidget = (id) => {

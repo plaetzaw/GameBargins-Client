@@ -15,7 +15,8 @@ const Navbar = () => {
   return (
     <nav>
       <ul>
-        <li>{user && <pre>Welcome {user.username}!</pre>}</li>
+        {user && <li><div>Welcome {user.username}!</div></li>}
+        {user && <li><div>Current Savings: {user.savings}!</div></li>}
         <li><Link href='/'>Home</Link></li>
         <li><Link href='/dashboard'>Dashboard</Link></li>
         {user && <li><Link href='/favorites'>Favorites</Link></li>}

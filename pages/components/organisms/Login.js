@@ -34,11 +34,13 @@ const Login = () => {
       id: request.data.user.id,
       username: request.data.user.name,
       email: request.data.user.email,
+      savings: request.data.user.moneysaved,
       token: request.data.token
     }
     setUser(UserObj)
     router.push('/dashboard')
     setLoadingUser(false)
+    console.log(UserObj)
   }
   return (
     <Container>
