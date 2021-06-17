@@ -9,6 +9,14 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    @media (min-width: 769px) { 
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+    }
+    @media (min-width: 420px) {
+      display: grid;
+      grid-template-columns: 50% 50%
+    }
 `
 const Card = styled.div`
     display: flex;
@@ -28,24 +36,25 @@ const Title = styled.div`
     display: flex;
     flex-wrap: wrap;
     font-size: 2.6em;
-    width: 50%;
-    // min-height: 10em;
-    align-content: center;
+    text-align: center;
     justify-content: flex-start;
-    @media (min-width: 769px) {
-      min-height: 4em;
-    }
+    // @media (min-width: 769px) {
+    //   min-height: 4em;
+    // }
 `
 const LogoDisplay = styled.div`
     display: flex;
     width: 50%;
-    min-height: 200px;
+    padding: 1em;
+    justify-content: center;
+    align-content: center;
+    // min-height: 200px;
 `
 
 const Logo = styled.img`
     display: flex;
-    max-width: 150px;
-    // max-height: 125px; 
+    max-width: 160px;
+    max-height: 125px; 
 `
 
 const Price = styled.div`
@@ -63,11 +72,19 @@ const ListedPrice = styled(Price)`
 `
 
 const Score = styled(Price)`
+    width: 100%;
     color: black;
     font-weight: 600;
     font-size: 1.3em;
-    justify-content: flex-start;
+    justify-content: center;
+    padding: 1em;
+`
 
+const HeaderWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 `
 
 const ItemWrapper = styled.div`
@@ -183,10 +200,11 @@ const GameDealCards = ({ deals }) => {
   const Markup = deals.map((game) => {
     return (
       <Card key={game.dealID}>
-        <ItemWrapper>
+        <HeaderWrapper>
           <Title>{game.title}</Title>
           <LogoDisplay><Logo src={game.thumb} /></LogoDisplay>
-        </ItemWrapper>
+
+        </HeaderWrapper>
         <ItemWrapper>
           <Price>Current Price: ${game.salePrice}</Price>
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
