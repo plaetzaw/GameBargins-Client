@@ -18,32 +18,33 @@ const Card = styled.div`
     padding: 1em;
     margin: 1em;
     // max-width: 250px;
-    width: 100%;
-    @media (min-width: 769px) {
-      width: 20%;
+    // width: 100%;
+    // @media (min-width: 769px) {
+    //   width: 20%;
       
-    }
+    // }
 `
 const Title = styled.div`
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     font-size: 2.6em;
-    // max-width: 70%;
-    text-align: center;
+    width: 50%;
+    // min-height: 10em;
     align-content: center;
-    justify-content: center;
+    justify-content: flex-start;
+    @media (min-width: 769px) {
+      min-height: 4em;
+    }
 `
 const LogoDisplay = styled.div`
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    width: 50%;
+    min-height: 200px;
 `
 
 const Logo = styled.img`
     display: flex;
-    // flex-direction: column;
-    // max-width: 150px;
+    max-width: 150px;
     // max-height: 125px; 
 `
 
@@ -52,19 +53,21 @@ const Price = styled.div`
     width: 50%;
     color: green;
     font-weight: 700;
+    justify-content: flex-start;
 `
 
 const ListedPrice = styled(Price)`
     color: red;
     font-weight: 100;
+    justify-content: flex-end;
 `
 
 const Score = styled(Price)`
-    // display: none;
     color: black;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 1.3em;
-    text-align: start;
+    justify-content: flex-start;
+
 `
 
 const ItemWrapper = styled.div`
@@ -180,16 +183,17 @@ const GameDealCards = ({ deals }) => {
   const Markup = deals.map((game) => {
     return (
       <Card key={game.dealID}>
-        {/* <ItemWrapper> */}
-        <Title>{game.title}</Title>
-        <LogoDisplay><Logo src={game.thumb} /></LogoDisplay>
-        {/* </ItemWrapper> */}
+        <ItemWrapper>
+          <Title>{game.title}</Title>
+          <LogoDisplay><Logo src={game.thumb} /></LogoDisplay>
+        </ItemWrapper>
         <ItemWrapper>
           <Price>Current Price: ${game.salePrice}</Price>
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
+          <Score>Deal Rating: {game.dealRating}/10.0</Score>
         </ItemWrapper>
-
-        <Score>Deal Rating: {game.dealRating}/10.0</Score>
+        {/* <ItemWrapper> */}
+        {/* </ItemWrapper> */}
         <ItemWrapper>
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
