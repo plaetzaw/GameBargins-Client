@@ -4,19 +4,23 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 100%;
     justify-content: center;
     align-content: center;
+    @media (min-width: 450px) {
+      display: grid;
+      grid-template-columns: 50% 50%
+    }
     @media (min-width: 769px) { 
       display: grid;
       grid-template-columns: 33% 33% 33%;
     }
-    @media (min-width: 420px) {
+    @media (min-width: 1280px) { 
       display: grid;
-      grid-template-columns: 50% 50%
+      grid-template-columns: 25% 25% 25% 25%;
     }
+
 `
 const Card = styled.div`
     display: flex;
