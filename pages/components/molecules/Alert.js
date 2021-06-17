@@ -15,6 +15,7 @@ const DeleteAlert = async (game, user, alerts, setAlerts) => {
   // Delete the alert in the database
   const DeleteAlertObj = {
     id: game.id,
+    title: game.title,
     email: user.email,
     gameID: game.gameID,
     desiredprice: game.desiredprice
