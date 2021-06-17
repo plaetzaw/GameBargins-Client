@@ -13,12 +13,29 @@ const Card = styled.div`
     flex-direction: column;
     padding: 1em;
     border: 2px solid;
-`
-const Title = styled.h3`
-    text-align: center;
-`
-const Logo = styled.img`
     max-width: 150px;
+
+`
+const Title = styled.div`
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    @media (min-width: 769px) {
+      font-size: 1.5;
+    }
+`
+const Text = styled.div`
+    text-align: center;
+    @media (min-width: 769px) {
+      font-size: 1.2em;
+    }
+`
+
+const Logo = styled.img`
+    max-height: 150px;
+    // max-width: 150px;
+
+    padding: 0.3em 0 0.5em 0;
 `
 
 const StoreCard = ({ stores, provider, setProvider }) => {
@@ -37,16 +54,18 @@ const StoreCard = ({ stores, provider, setProvider }) => {
         {/* <RadioGroup aria-label='gender' name='gender1' onChange={(e) => { NewStore(store.storeID) }}> */}
         {/* <FormControlLabel value={store.storeID} control={<Radio />} label='Provider' /> */}
         {/* </RadioGroup> */}
-
         <button onClick={(e) => { NewStore(store.storeID) }}>See Deals</button>
       </Card>
     )
   })
 
   return (
-    <Container>
-      {Markup}
-    </Container>
+    <>
+      {/* <h1>Select the store you want to view deals from</h1> */}
+      <Container>
+        {Markup}
+      </Container>
+    </>
   )
 }
 
