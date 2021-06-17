@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import styled from 'styled-components'
 // import { Whirly } from 'css-spinners-react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const Container = styled.div`
 display: flex;
@@ -46,7 +47,7 @@ const Login = () => {
     <Container>
       <h1>Login</h1>
 
-      {/* {setLoadingUser ? (null) : (<Spinner><Whirly />Logging in</Spinner>)} */}
+      {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
 
       <form>
         <input
