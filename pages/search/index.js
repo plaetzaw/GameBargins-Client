@@ -15,13 +15,34 @@ import axios from 'axios'
 import SearchResults from '../components/organisms/SearchResults'
 
 const Container = styled.div`
-padding: 1em;
-// display: flex;
-// flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
 `
+
+const Label = styled.div`
+  display: flex;
+  font-weight: bold;
+`
+
+const SearchField = styled.input`
+  display: flex;
+  width: 100%;
+  height: 1.2em;
+`
+
 const SearchControllersContainer = styled.div`
   display: flex;
+  flex-direction: column;
+`
+const ToggleWrapper = styled.div`
+  display: flex;
   flex-direction: row;
+  padding 1em 0 2.2em 0;
+`
+const ToggleItem = styled.div`
+  flex-direction: column;
+  width: 50%;
 `
 
 const SearchResultsContainer = styled.div`
@@ -128,44 +149,55 @@ const Search = () => {
     <Container>
       <h1>Search Page</h1>
       <SearchControllersContainer>
-        <div style={{ width: '335px', margin: '30px' }}>
-          <input
-            value={searchTitle}
-            onChange={(e) => { setSearchTitle(e.target.value) }}
-          />
-          <Switch
-            value={exactTitle}
-            onChange={(e) => { setExactTitle(!exactTitle) }}
-            color='primary'
-            name='excat title'
-            inputProps={{ 'aria-label': 'primary checkbox' }}
-          />
-          <Switch
-            value={onSale}
-            onChange={(e) => { setOnSale(!onSale) }}
-            color='secondary'
-            name='excat title'
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
-          />
-          <Slider
-            value={priceRange}
-            onChange={UpdatePrice}
-            marks={marks}
-            step={5}
-            valueLabelDisplay='on'
-            min={0}
-            max={60}
-            aria-labelledby='discrete-slider-always'
-          />
-          <Select
-            options={options}
-            value={options.find(obj => obj.value === type)}
-            onChange={(e) => { setType(e.value) }}
-          />
 
-        </div>
+        <Label>Search Title</Label>
+        <SearchField
+          value={searchTitle}
+          onChange={(e) => { setSearchTitle(e.target.value) }}
+        />
+        <Label style={{ paddingTop: '1em', paddingBottom: '1em' }}>Search Criteria</Label>
+        <Select
+          options={options}
+          value={options.find(obj => obj.value === type)}
+          onChange={(e) => { setType(e.value) }}
+        />
+        <ToggleWrapper>
+          <ToggleItem>
+            <Label>Exact title</Label>
+            <Switch
+              value={exactTitle}
+              onChange={(e) => { setExactTitle(!exactTitle) }}
+              color='primary'
+              name='excat title'
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
+          </ToggleItem>
+          <ToggleItem>
+            <Label>On sale?</Label>
+            <Switch
+              value={onSale}
+              onChange={(e) => { setOnSale(!onSale) }}
+              color='secondary'
+              name='excat title'
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+          </ToggleItem>
+        </ToggleWrapper>
+        <Label style={{ paddingBottom: '2.1em', textAlign: 'center' }}>Price Range</Label>
+        <Slider
+          value={priceRange}
+          onChange={UpdatePrice}
+          marks={marks}
+          step={5}
+          valueLabelDisplay='on'
+          min={0}
+          max={60}
+            // orientation='vertical'
+          aria-labelledby='discrete-slider-always'
+        />
+        <button onClick={Submit}>Search</button>
+
       </SearchControllersContainer>
-      <button onClick={Submit}>Search</button>
 
       <SearchResultsContainer>
         {showResults && <SearchResults searchData={searchData} />}
