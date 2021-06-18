@@ -13,6 +13,9 @@ const Card = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     border: 2px solid;
+    // background-color: ${props => props.isOnSale ? 'green' : 'yellow'}
+    background-color: ${props => props.isOnSale ? '#FF6464' : '#ffffff'};
+
     // width: 150px;
     // height: 75px;
 `
@@ -61,11 +64,13 @@ const FullGameCard = ({ favorites, setFavorites }) => {
   const { user, setUser } = useContext(UserContext)
 
   const Markup = favorites.map((game) => {
+    console.log(game.isOnSale)
+
     return (
       <Card key={game.id}>
         <CardItem>{game.title}</CardItem>
         <Logo src={game.thumb} />
-        {(game.isOnSale) === true ? (<CardItem>This title is currently on sale!</CardItem>) : (<CardItem>This title isn't currently on sale</CardItem>)}
+        {(game.isOnSale) === true ? (<CardItem isOnSale={game.isOnSale}>This title is currently on sale!</CardItem>) : (<CardItem>This title isn't currently on sale</CardItem>)}
         <CardItem>Current Price {game.salePrice} Normal Price: {game.normalPrice}</CardItem>
         <CardItem> CheapShark Rating: {game.dealRating} / 10</CardItem>
         {(game.metacriticLink !== null) && <CardItem> Metacritic Score {game.metacriticScore} / 100</CardItem>}
