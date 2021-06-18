@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -40,25 +39,9 @@ const Logo = styled.img`
 `
 
 const StoreCard = ({ stores, provider, setProvider }) => {
-  const [activeStore, setActiveStore] = useState([])
-
   const NewStore = (store) => {
     setProvider(store)
-    ToggleWidget(store)
     console.log(provider)
-  }
-
-  const ToggleWidget = (id) => {
-    console.log(id)
-    if (activeStore.includes(id) === false) {
-      setActiveStore([...activeStore, id])
-      console.log('The open array items are', activeStore)
-    } else {
-      // find the position of this integer
-      const idposition = activeStore.indexOf(id)
-      setActiveStore(activeStore.filter((_, i) => i !== idposition))
-      console.log('The open array items are', activeStore)
-    }
   }
 
   const Markup = stores.map((store) => {

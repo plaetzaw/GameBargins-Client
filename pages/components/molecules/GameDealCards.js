@@ -214,8 +214,6 @@ const GameDealCards = ({ deals }) => {
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
           <Score>Deal Rating: {game.dealRating}/10.0</Score>
         </ItemWrapper>
-        {/* <ItemWrapper> */}
-        {/* </ItemWrapper> */}
         <ItemWrapper>
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
