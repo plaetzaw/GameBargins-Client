@@ -16,6 +16,17 @@ const Spinner = styled.div`
   align-items: center;
   justify-content: center;
 `
+const HeaderText = styled.div`
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+`
+
+const Form = styled.form`
+  color: grey;
+  border: 3px soild grey;
+`
+
 const Label = styled.div`
   display: flex;
   font-weight: 500;
@@ -25,7 +36,7 @@ const Label = styled.div`
 
 const Input = styled.input`
   display: flex;
-  width: 50%;
+  width: 75%;
   margin: 0.2em 1em 0.2em 1em;
 `
 const Button = styled.button`
@@ -33,8 +44,11 @@ const Button = styled.button`
   border-radius: 8px;
   font-weight: 700;
   background-color: violet;
-  width: 80px;
-  margin: 1em 1em 0.2em 1em;
+  width: 8em;
+  height: 3em;
+  margin: 2em 1em 2em 1em;
+  align-items: center;
+  justify-content: center;
 `
 
 const Register = () => {
@@ -70,10 +84,10 @@ const Register = () => {
   }
   return (
     <Container>
-      <h1>New to our site?</h1>
+      <HeaderText>New to our site?</HeaderText>
       {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
 
-      <form>
+      <Form>
         <Label>Email</Label>
         <Input
           value={email}
@@ -95,7 +109,7 @@ const Register = () => {
           type='password'
         />
         <Button onClick={RegsiterUser}>Register</Button>
-      </form>
+      </Form>
     </Container>
   )
 }

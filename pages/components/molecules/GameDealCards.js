@@ -97,13 +97,14 @@ const ItemWrapper = styled.div`
     flex-wrap: wrap;
 `
 
-const Deal = styled.div`
+const Deal = styled.button`
     background-color: green;
     width: 50%;
     font-size: 1.3em;
     font-weight: bold;
     min-height: 2.2em;
     text-align: center;
+    border-radius: 8px;
     // align-items: center;
     // justify-content: center;
 `

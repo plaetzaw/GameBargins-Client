@@ -19,6 +19,12 @@ const Spinner = styled.div`
 const Title = styled.div`
 `
 
+const HeaderText = styled.div`
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+`
+
 const Label = styled.div`
   display: flex;
   font-weight: 500;
@@ -28,7 +34,7 @@ const Label = styled.div`
 
 const Input = styled.input`
   display: flex;
-  width: 50%;
+  width: 75%;
   margin: 0.2em 1em 0.2em 1em;
 `
 const Button = styled.button`
@@ -36,8 +42,11 @@ const Button = styled.button`
   border-radius: 8px;
   font-weight: 700;
   background-color: violet;
-  width: 80px;
-  margin: 1em 1em 0.2em 1em;
+  width: 8em;
+  height: 3em;
+  margin: 2em 1em 2em 1em;
+  align-items: center;
+  justify-content: center;
 `
 
 const Login = () => {
@@ -70,7 +79,7 @@ const Login = () => {
   }
   return (
     <Container>
-      <h1>Already a user?</h1>
+      <HeaderText>Already a user?</HeaderText>
 
       {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
 
