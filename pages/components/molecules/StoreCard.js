@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import styled from 'styled-components'
-// import Radio from '@material-ui/core/Radio'
-// import RadioGroup from '@material-ui/core/RadioGroup'
-// import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const Container = styled.div`
     display: flex;
@@ -39,9 +40,25 @@ const Logo = styled.img`
 `
 
 const StoreCard = ({ stores, provider, setProvider }) => {
+  const [activeStore, setActiveStore] = useState([])
+
   const NewStore = (store) => {
     setProvider(store)
+    ToggleWidget(store)
     console.log(provider)
+  }
+
+  const ToggleWidget = (id) => {
+    console.log(id)
+    if (activeStore.includes(id) === false) {
+      setActiveStore([...activeStore, id])
+      console.log('The open array items are', activeStore)
+    } else {
+      // find the position of this integer
+      const idposition = activeStore.indexOf(id)
+      setActiveStore(activeStore.filter((_, i) => i !== idposition))
+      console.log('The open array items are', activeStore)
+    }
   }
 
   const Markup = stores.map((store) => {
@@ -51,10 +68,10 @@ const StoreCard = ({ stores, provider, setProvider }) => {
         {/* 'Icon'<img src={`https://www.cheapshark.com/${store.images.icon}`} /> */}
         {/* 'Banner'<img src={`https://www.cheapshark.com/${store.images.banner}`} /> */}
         <Logo src={`https://www.cheapshark.com/${store.images.logo}`} />
-        {/* <RadioGroup aria-label='gender' name='gender1' onChange={(e) => { NewStore(store.storeID) }}> */}
-        {/* <FormControlLabel value={store.storeID} control={<Radio />} label='Provider' /> */}
-        {/* </RadioGroup> */}
-        <button onClick={(e) => { NewStore(store.storeID) }}>See Deals</button>
+        <RadioGroup aria-label='store' name='gender1' value={provider} onChange={(e) => { NewStore(store.storeID) }}>
+          <FormControlLabel value={store.storeID} control={<Radio />} label='See Deals!' />
+        </RadioGroup>
+        {/* <button onClick={(e) => { NewStore(store.storeID) }}>See Deals</button> */}
       </Card>
     )
   })
