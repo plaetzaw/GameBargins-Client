@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
+    margin: 1em;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -27,19 +28,21 @@ const Column = styled.div`
 `
 
 const Title = styled.div`
-    font-size: 1.5em;
-    font-weight: 00;
+    width: 90%;
+    font-size: 2em;
+    font-weight: 700;
 `
 const Item = styled(Title)`
+    width: 100%;
     font-size: 1em;
     font-weight: 100;
 `
 const Delete = styled.div`
     flex-direction: row;
-    font-size: 4em;
+    font-size: 2em;
     position: absolute;
-    top: 45px;
-    left: 290px;
+    top: 5px;
+    left: 310px;
     color: red;
 `
 
@@ -75,8 +78,8 @@ const Alert = ({ alerts, setAlerts }) => {
           <Column>
             <Title>{game.title}</Title>
             <Item>{game.email}</Item>
-            <Item>Target Price: {game.desiredprice}</Item>
-            <Item>Price Set At: {game.setprice}</Item>
+            <Item>Target Price: ${game.desiredprice}</Item>
+            <Item>Price Set At: ${game.setprice}</Item>
           </Column>
           <Delete onClick={() => { DeleteAlert(game, user, alerts, setAlerts) }}>X</Delete>
         </Wrapper>

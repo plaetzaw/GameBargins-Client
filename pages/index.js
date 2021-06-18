@@ -10,6 +10,7 @@ const LoginRegisterWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;

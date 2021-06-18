@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 100%;
 `
 
 const Card = styled.div`
