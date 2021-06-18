@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -6,28 +6,155 @@ import axios from 'axios'
 const Container = styled.div`
     display: grid;
     grid-template-columns: 100%;
+    justify-content: center;
+    align-content: center;
+    @media (min-width: 450px) {
+      display: grid;
+      grid-template-columns: 50% 50%
+    }
+    @media (min-width: 769px) { 
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+    }
+    @media (min-width: 1280px) { 
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
+    }
+
 `
+
+// const Card = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     flex-wrap: wrap;
+//     border: 2px solid;
+//     // background-color: ${props => props.isOnSale ? 'green' : 'yellow'}
+//     background-color: ${props => props.isOnSale ? '#FF6464' : '#ffffff'};
+
+//     // width: 150px;
+//     // height: 75px;
+// `
 
 const Card = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     border: 2px solid;
-    // background-color: ${props => props.isOnSale ? 'green' : 'yellow'}
-    background-color: ${props => props.isOnSale ? '#FF6464' : '#ffffff'};
-
-    // width: 150px;
-    // height: 75px;
+    padding: 1em;
+    margin: 1em;
 `
+
+const Title = styled.div`
+    min-height: 4em;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 2.6em;
+    align-items: center;
+    justify-content: center;
+    // padding: 0 1em 0 1em;
+
+`
+const LogoDisplay = styled.div`
+    display: flex;
+    width: 50%;
+    padding: 1em;
+    justify-content: center;
+    align-content: center;
+    // min-height: 200px;
+`
+
 const Logo = styled.img`
     display: flex;
-    max-width: 150px;
-    max-height: 100px; 
+    max-width: 160px;
+    max-height: 125px; 
 `
 
-const CardItem = styled.div`
+const Price = styled.div`
     display: flex;
+    width: 50%;
+    color: green;
+    font-weight: 700;
+    justify-content: flex-start;
 `
+
+const ListedPrice = styled(Price)`
+    color: red;
+    font-weight: 100;
+    justify-content: flex-end;
+`
+
+const Score = styled(Price)`
+    width: 100%;
+    color: black;
+    font-weight: 600;
+    font-size: 1.3em;
+    justify-content: center;
+    padding: 1em;
+`
+
+const HeaderWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+`
+
+const ItemWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+`
+
+const Deal = styled.button`
+    display: flex;
+    background-color: lightgreen;
+    width: 50%;
+    font-size: 1.3em;
+    font-weight: bold;
+    min-height: 2.2em;
+    text-align: center;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+`
+const Metacritic = styled(Deal)`
+    background-color: violet;
+`
+
+const Favorite = styled(Deal)`
+    background-color: red;
+`
+const PriceAlert = styled(Deal)`
+    background-color: yellow
+`
+
+const Widget = styled(Deal)`
+    width: 100%;
+    background-color: blue;
+`
+
+const OpenMetacritic = (metacritic) => {
+  window.open(`https://www.metacritic.com${metacritic}`)
+}
+const OpenDeal = (dealID) => {
+  window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`)
+}
+
+const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setAlerts) => {
+  console.log(alerts)
+  const PriceAlertObj = {
+    userID: user.id,
+    email: user.email,
+    gameID: game.gameID,
+    price: targetPrice,
+    title: game.title,
+    setprice: game.salePrice
+  }
+  const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
+  ToggleWidget(game.dealID)
+  setAlerts(alerts => [...alerts], PriceAlertObj)
+  console.log(alerts)
+}
 
 const DeleteFavorite = async (id, favorites, setFavorites) => {
   console.log(id)
@@ -60,24 +187,48 @@ const IBoughtIt = async (game, user, setUser, favorites, setFavorites) => {
   DeleteFavorite(game.id, favorites, setFavorites)
 }
 
-const FullGameCard = ({ favorites, setFavorites }) => {
+const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
   const { user, setUser } = useContext(UserContext)
+  const [widget, setWidget] = useState([])
+  const [targetPrice, setTargetPrice] = useState()
+
+  const ToggleWidget = (id) => {
+    console.log(id)
+    if (widget.includes(id) === false) {
+      setWidget([...widget, id])
+      console.log('The open array items are', widget)
+    } else {
+      // find the position of this integer
+      const idposition = widget.indexOf(id)
+      setWidget(widget.filter((_, i) => i !== idposition))
+      console.log('The open array items are', widget)
+    }
+  }
 
   const Markup = favorites.map((game) => {
-    console.log(game.isOnSale)
-
     return (
       <Card key={game.id}>
-        <CardItem>{game.title}</CardItem>
-        <Logo src={game.thumb} />
-        {(game.isOnSale) === true ? (<CardItem isOnSale={game.isOnSale}>This title is currently on sale!</CardItem>) : (<CardItem>This title isn't currently on sale</CardItem>)}
-        <CardItem>Current Price {game.salePrice} Normal Price: {game.normalPrice}</CardItem>
-        <CardItem> CheapShark Rating: {game.dealRating} / 10</CardItem>
-        {(game.metacriticLink !== null) && <CardItem> Metacritic Score {game.metacriticScore} / 100</CardItem>}
-        {(game.metacriticLink !== null) && <CardItem>View on MetaCritic {game.metacriticLink}</CardItem>}
-        {(game.steamCheckerBool === true) && <CardItem>Steam Rating of {game.steamRatingPercent} and {game.steamRatingText} reviews based on {game.steamRatingCount} reviews</CardItem>}
-        <button onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Remove from Favorites</button>
-        <button onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</button>
+        <HeaderWrapper>
+          <Title>{game.title}</Title>
+          <Logo src={game.thumb} />
+        </HeaderWrapper>
+
+        {(game.isOnSale) === true ? (<Score isOnSale={game.isOnSale}>This title is currently on sale!</Score>) : (<Score>This title isn't currently on sale</Score>)}
+        <ItemWrapper>
+          <Price>Current Price: ${game.salePrice}</Price>
+          <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
+          <Score>Deal Rating: {game.dealRating}/10.0</Score>
+        </ItemWrapper>
+        {(game.metacriticLink !== null) && <Score> Metacritic Score {game.metacriticScore} / 100</Score>}
+        {(game.steamCheckerBool === true) && <Score>Steam Rating of {game.steamRatingPercent} and {game.steamRatingText} reviews based on {game.steamRatingCount} reviews</Score>}
+        <ItemWrapper>
+          <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
+          <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
+          {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete from favorites</Favorite>}
+          {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
+          {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
+          <button onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</button>
+        </ItemWrapper>
       </Card>
     )
   })

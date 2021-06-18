@@ -30,21 +30,17 @@ const Card = styled.div`
     padding: 1em;
     margin: 1em;
     // max-width: 250px;
-    // width: 100%;
-    // @media (min-width: 769px) {
-    //   width: 20%;
-      
-    // }
 `
+
 const Title = styled.div`
+    min-height: 4em;
     display: flex;
     flex-wrap: wrap;
     font-size: 2.6em;
-    text-align: center;
-    justify-content: flex-start;
-    // @media (min-width: 769px) {
-    //   min-height: 4em;
-    // }
+    align-items: center;
+    justify-content: center;
+    // padding: 0 1em 0 1em;
+
 `
 const LogoDisplay = styled.div`
     display: flex;
@@ -98,18 +94,19 @@ const ItemWrapper = styled.div`
 `
 
 const Deal = styled.button`
-    background-color: green;
+    display: flex;
+    background-color: lightgreen;
     width: 50%;
     font-size: 1.3em;
     font-weight: bold;
     min-height: 2.2em;
     text-align: center;
     border-radius: 8px;
-    // align-items: center;
-    // justify-content: center;
+    align-items: center;
+    justify-content: center;
 `
 const Metacritic = styled(Deal)`
-    background-color: purple;
+    background-color: violet;
 `
 
 const Favorite = styled(Deal)`
