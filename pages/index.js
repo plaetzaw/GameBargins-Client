@@ -1,9 +1,26 @@
 import { useContext } from 'react'
 import { UserContext } from './components/organisms/UserContext'
 import Head from 'next/head'
-
+import styled from 'styled-components'
 import Login from './components/organisms/Login'
 import Register from './components/organisms/Register'
+
+const LoginRegisterWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+`
+const IntroText = styled.div`
+  display: flex;
+  width: 100%;
+  font-size: 1.1em;
+  padding: 0.5em 0 0.5em 0;
+`
 
 const Home = () => {
   const { user } = useContext(UserContext)
@@ -17,8 +34,13 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <h1>Home</h1>
-      {!user ? (<><Login /> <Register /></>) : null}
+      <TextContainer>
+        <IntroText>Welcome to GameBargins. This site is designed to help you find the best deals on PC game titles!</IntroText>
+        <IntroText>This site is powered by the Cheapshark API.</IntroText>
+        <IntroText>We recommend you register to use all of the site's features, however, you may proceed as a guest!</IntroText>
+      </TextContainer>
+
+      {!user ? (<LoginRegisterWrapper><Login /> <Register /></LoginRegisterWrapper>) : null}
 
     </div>
   )

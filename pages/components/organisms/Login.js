@@ -7,12 +7,37 @@ import styled from 'styled-components'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 const Container = styled.div`
-display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 `
 const Spinner = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const Title = styled.div`
+`
+
+const Label = styled.div`
+  display: flex;
+  font-weight: 500;
+  color: violet;
+  margin: 1em 1em 1em 1em;
+`
+
+const Input = styled.input`
+  display: flex;
+  width: 50%;
+  margin: 0.2em 1em 0.2em 1em;
+`
+const Button = styled.button`
+  display: flex;
+  border-radius: 8px;
+  font-weight: 700;
+  background-color: violet;
+  width: 80px;
+  margin: 1em 1em 0.2em 1em;
 `
 
 const Login = () => {
@@ -45,23 +70,25 @@ const Login = () => {
   }
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Already a user?</h1>
 
       {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
 
       <form>
-        <input
+        <Label>Email</Label>
+        <Input
           value={email}
           onChange={(e) => { setEmail(e.target.value) }}
           placeholder='Email'
-
         />
-        <input
+        <Label>Password</Label>
+        <Input
           value={password}
           onChange={(e) => { setPassword(e.target.value) }}
           placeholder='Password'
+          type='password'
         />
-        <button onClick={LoginUser}>Login</button>
+        <Button onClick={LoginUser}>Login</Button>
       </form>
 
       {/* {user && <button onClick={() => { setUser(null) }}>Logout</button>} */}
