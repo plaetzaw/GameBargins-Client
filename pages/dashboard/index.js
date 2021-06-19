@@ -62,14 +62,11 @@ const Dashboard = () => {
   }, [provider])
   return (
     <>
-
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <h1>Dashboard Page</h1>
       {stores && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
       {stores && !loading && <GamesCard deals={deals} />}
-      <br />
-
     </>
   )
 }

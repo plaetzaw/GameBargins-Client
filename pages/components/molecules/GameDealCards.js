@@ -36,7 +36,7 @@ const Title = styled.div`
     min-height: 4em;
     display: flex;
     flex-wrap: wrap;
-    font-size: 2.6em;
+    font-size: 2em;
     align-items: center;
     justify-content: center;
     // padding: 0 1em 0 1em;
@@ -205,7 +205,6 @@ const GameDealCards = ({ deals }) => {
         <HeaderWrapper>
           <Title>{game.title}</Title>
           <LogoDisplay><Logo src={game.thumb} /></LogoDisplay>
-
         </HeaderWrapper>
         <ItemWrapper>
           <Price>Current Price: ${game.salePrice}</Price>

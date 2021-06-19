@@ -40,15 +40,15 @@ const Card = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     border: 2px solid;
-    padding: 1em;
-    margin: 1em;
+    // padding: 1em;
+    // margin: 1em;
 `
 
 const Title = styled.div`
-    min-height: 4em;
     display: flex;
-    flex-wrap: wrap;
+    min-height: 4em;
     font-size: 2.6em;
+    text-align: center;
     align-items: center;
     justify-content: center;
     // padding: 0 1em 0 1em;
@@ -74,22 +74,27 @@ const Price = styled.div`
     width: 50%;
     color: green;
     font-weight: 700;
-    justify-content: flex-start;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    // justify-content: flex-start;
 `
 
 const ListedPrice = styled(Price)`
     color: red;
     font-weight: 100;
-    justify-content: flex-end;
+    // justify-content: flex-end;
 `
 
-const Score = styled(Price)`
-    width: 100%;
+const Score = styled.div`
+    display: flex;
     color: black;
     font-weight: 600;
     font-size: 1.3em;
     justify-content: center;
-    padding: 1em;
+    align-items: center;
+    width: 50%;
+    // padding: 1em;
 `
 
 const HeaderWrapper = styled.div`
@@ -104,16 +109,55 @@ const ItemWrapper = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
 `
+const ChoiceWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 50% 50%
+    `
+
+const Sale = styled.div`
+    display: flex;
+    color: black;
+    font-weight: 600;
+    font-size: 1.3em;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25em 1em 0.25em 1em;
+    min-height: 4em;
+`
+const NotSale = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 0 0.7em 0;
+    min-height: 4.6em;
+
+`
+
+const SaleWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+const MetaWrapper = styled.div`
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+`
+
+const SteamItem = styled.td`
+    height: 2.4em;
+    text-align: center;
+`
 
 const Deal = styled.button`
     display: flex;
     background-color: lightgreen;
-    width: 50%;
+    // width: 45%;
     font-size: 1.3em;
     font-weight: bold;
-    min-height: 2.2em;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 6px;
     align-items: center;
     justify-content: center;
 `
@@ -151,6 +195,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
     setprice: game.salePrice
   }
   const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
+  console.log(postalert)
   ToggleWidget(game.dealID)
   setAlerts(alerts => [...alerts], PriceAlertObj)
   console.log(alerts)
@@ -210,25 +255,37 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
       <Card key={game.id}>
         <HeaderWrapper>
           <Title>{game.title}</Title>
-          <Logo src={game.thumb} />
+          <LogoDisplay><Logo src={game.thumb} /></LogoDisplay>
         </HeaderWrapper>
-
-        {(game.isOnSale) === true ? (<Score isOnSale={game.isOnSale}>This title is currently on sale!</Score>) : (<Score>This title isn't currently on sale</Score>)}
+        {(game.isOnSale) === true
+          ? (<SaleWrapper><Sale isOnSale={game.isOnSale}>This title is currently on sale!</Sale><Sale>Deal Rating: {game.dealRating}/10.0</Sale></SaleWrapper>)
+          : (<NotSale>This title isn't currently on sale</NotSale>)}
         <ItemWrapper>
           <Price>Current Price: ${game.salePrice}</Price>
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
-          <Score>Deal Rating: {game.dealRating}/10.0</Score>
         </ItemWrapper>
-        {(game.metacriticLink !== null) && <Score> Metacritic Score {game.metacriticScore} / 100</Score>}
-        {(game.steamCheckerBool === true) && <Score>Steam Rating of {game.steamRatingPercent} and {game.steamRatingText} reviews based on {game.steamRatingCount} reviews</Score>}
-        <ItemWrapper>
+        <MetaWrapper>{(game.metacriticLink !== null) && <Score> Metacritic Score {game.metacriticScore} / 100</Score>}</MetaWrapper>
+        {(game.steamCheckerBool === true) &&
+          <table>
+            <tr>
+              <SteamItem><b>Steam Score</b></SteamItem>
+              <SteamItem><b>Ratings</b></SteamItem>
+              <SteamItem><b>Reviews</b></SteamItem>
+            </tr>
+            <tr>
+              <SteamItem>{game.steamRatingPercent}</SteamItem>
+              <SteamItem>{game.steamRatingText} Ratings</SteamItem>
+              <SteamItem>{game.steamRatingCount} Reviews</SteamItem>
+            </tr>
+          </table>}
+        <ChoiceWrapper>
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
           {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete from favorites</Favorite>}
           {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
           {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
           <button onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</button>
-        </ItemWrapper>
+        </ChoiceWrapper>
       </Card>
     )
   })

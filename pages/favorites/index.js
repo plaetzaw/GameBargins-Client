@@ -42,7 +42,6 @@ const FavoritesPage = () => {
       const Alerts = await axios.post(getAlerts, { userID: user.id })
       Promise.all([setFavorites(Favorites.data), setAlerts(Alerts.data)])
 
-      // const myfavorites = await setFavorites(results.data)
       // We may have some async issue here
       if (favorites) {
         setLoading(false)
@@ -55,12 +54,11 @@ const FavoritesPage = () => {
     // Passing the length of the array, instead of the array itself, this prevents infinite re-renders
   }, [favorites.length, alerts.length])
 
-  // console.log('the array length is', favorites.length)
   console.log('here are your favorites', favorites)
   console.log('here are your alerts', alerts)
 
   return (
-    <div>
+    <>
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <h1>Favorites</h1>
@@ -68,7 +66,7 @@ const FavoritesPage = () => {
       {favorites.length > 0 && !loading ? (<FullGameCard favorites={favorites} setFavorites={setFavorites} alerts={alerts} setAlerts={setAlerts} />) : (<div>You have no favorites currently</div>)}
       <h1>Alerts</h1>
       {alerts && !loading && <Alerts alerts={alerts} setAlerts={setAlerts} />}
-    </div>
+    </>
 
   )
 }
