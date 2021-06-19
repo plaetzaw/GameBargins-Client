@@ -153,13 +153,13 @@ const SteamItem = styled.td`
 const Deal = styled.button`
     display: flex;
     background-color: lightgreen;
-    // width: 45%;
     font-size: 1.3em;
     font-weight: bold;
     text-align: center;
     border-radius: 6px;
     align-items: center;
     justify-content: center;
+    min-height: 3em;
 `
 const Metacritic = styled(Deal)`
     background-color: violet;
@@ -171,10 +171,15 @@ const Favorite = styled(Deal)`
 const PriceAlert = styled(Deal)`
     background-color: yellow
 `
+const BoughtIt = styled(Deal)`
+    background-color: orange;
+`
 
 const Widget = styled(Deal)`
-    width: 100%;
     background-color: blue;
+`
+const PriceInput = styled.input`
+    width: 60%;
 `
 
 const OpenMetacritic = (metacritic) => {
@@ -282,9 +287,9 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
           {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete from favorites</Favorite>}
+          {user && <BoughtIt onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</BoughtIt>}
           {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
-          {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
-          <button onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</button>
+          {widget.includes(game.dealID) && <Widget><PriceInput value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
         </ChoiceWrapper>
       </Card>
     )

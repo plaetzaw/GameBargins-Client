@@ -11,38 +11,25 @@ const Container = styled.div`
 `
 
 const Card = styled.div`
+    border: 2px solid black;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    border: 2px solid;
-    width: 90%;
+    text-align: center;
 `
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-const Column = styled.div`
-    display: flex;
-    flex-direction: column;
+const DisplayWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 35% 20% 17.5% 17.5% 10%;
 `
 
 const Title = styled.div`
-    width: 90%;
-    font-size: 2em;
-    font-weight: 700;
+    font-size: 1.1em;
+    text-align: center;
 `
-const Item = styled(Title)`
-    width: 100%;
-    font-size: 1em;
-    font-weight: 100;
+const Item = styled.div`
+    text-align: center;
 `
+
 const Delete = styled.div`
-    flex-direction: row;
     font-size: 2em;
-    position: absolute;
-    top: 5px;
-    left: 310px;
     color: red;
 `
 
@@ -74,15 +61,14 @@ const Alert = ({ alerts, setAlerts }) => {
   const Markup = alerts.map((game) => {
     return (
       <Card key={game.id}>
-        <Wrapper>
-          <Column>
-            <Title>{game.title}</Title>
-            <Item>{game.email}</Item>
-            <Item>Target Price: ${game.desiredprice}</Item>
-            <Item>Price Set At: ${game.setprice}</Item>
-          </Column>
+        <DisplayWrapper>
+          <Title><b>{game.title}</b></Title>
+          <Item>{game.email}</Item>
+          <Item>Target Price: ${game.desiredprice}</Item>
+          <Item>Price Set At: ${game.setprice}</Item>
           <Delete onClick={() => { DeleteAlert(game, user, alerts, setAlerts) }}>X</Delete>
-        </Wrapper>
+        </DisplayWrapper>
+
       </Card>
     )
   })

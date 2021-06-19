@@ -119,6 +119,7 @@ const PriceAlert = styled(Deal)`
 const Widget = styled(Deal)`
     width: 100%;
     background-color: blue;
+    min-height: 1em;
 `
 
 const OpenMetacritic = (metacritic) => {
