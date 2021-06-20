@@ -11,10 +11,16 @@ body {
 ul {
   list-style-type: none;
 }
+a { 
+  color: inherit; 
+  text-decoration: none !important; 
+}
+
 `
 
 function MyApp ({ Component, pageProps }) {
   const [user, setUser] = useState(null)
+
   // const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
   // console.log(user)
 
