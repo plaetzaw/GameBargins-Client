@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
@@ -12,13 +11,15 @@ const NavBarPlacement = styled.div`
   flex-direction: row;
   height: ${props => props.open ? '100vh' : 'auto'};
   width: ${props => props.open ? '100%' : 'auto'};
-  background-color: ${props => props.open ? 'red' : 'orange'}
+  // background-color: ${props => props.open ? 'red' : 'orange'}
 
 `
 const Nav = styled.ul`
   width: 100%;
   padding-top: 1em;
-  display: ${props => props.open ? 'block' : 'none'};
+  display: ${props => props.open ? 'flex' : 'none'};
+  flex-direction: column;
+  align-items: center;
   @media(min-width: 801px){
     display: block;
     margin-top:1.8em;
@@ -26,13 +27,14 @@ const Nav = styled.ul`
 
 `
 const NavItem = styled.li`
-  display: block;
-
-  padding: .6em 0;
+  cursor: pointer;
+  padding: .8em 0;
+  padding-right: 1em;
   margin: 0 auto;
   width: 80%;
   font-size:1.8em;
-  // text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
   @media(min-width: 801px){
     margin-right:1.4em;
     float:left;
@@ -50,7 +52,6 @@ const Welcome = styled.div`
 
 const Savings = styled(Welcome)`
   display: flex;
-
 `
 
 const LogoutBtn = styled.button`
@@ -60,18 +61,15 @@ const LogoutBtn = styled.button`
   width: 60px;
 `
 
-// const IntroWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `
+const IntroWrapper = styled.div`
+display: ${props => props.open ? 'flex' : 'none'};
+width: ${props => props.open ? 'auto' : '100%'};
 
-// const NavWrapper = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-// `
+  // width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  `
 
 const HamburgerWrapper = styled.div`
   // margin: 2em .8em 0 0;
@@ -79,7 +77,6 @@ const HamburgerWrapper = styled.div`
   @media(min-width: 801px) {
       display: none;
   }
-
 `
 
 const Navbar = () => {
@@ -89,7 +86,7 @@ const Navbar = () => {
 
   const PageNavigation = (props) => {
     setMobileOpen(false)
-    router.push(props.href)
+    router.push(props)
   }
 
   const Logout = () => {
@@ -101,16 +98,18 @@ const Navbar = () => {
     <NavBarPlacement open={mobileOpen}>
       {mobileOpen === false && <HamburgerWrapper onClick={() => { setMobileOpen(!mobileOpen) }}><Hamburger /></HamburgerWrapper>}
       {mobileOpen && <HamburgerWrapper onClick={() => { setMobileOpen(!mobileOpen) }}><Close /> </HamburgerWrapper>}
+      <IntroWrapper open={mobileOpen}>
+        {user && (mobileOpen === false) && <Welcome><div>Welcome {user.username}!</div></Welcome>}
+        {user && (mobileOpen === false) && <Savings><div>Your Savings: ${user.savings}!</div></Savings>}
+      </IntroWrapper>
+
       <Nav open={mobileOpen}>
-        {/* <IntroWrapper> */}
-        {/* {user && <Welcome><div>Welcome {user.username}!</div></Welcome>} */}
-        {/* {user && <Savings><div>Your Savings: ${user.savings}!</div></Savings>} */}
-        {/* </IntroWrapper> */}
+
         {/* <NavWrapper> */}
-        <NavItem><Link href='/'>Home</Link></NavItem>
-        <NavItem><Link href='/dashboard'>Dashboard</Link></NavItem>
-        <NavItem><Link href='/search'>Search</Link></NavItem>
-        {user && <NavItem><Link href='/favorites'>Favorites</Link></NavItem>}
+        <NavItem href='/' onClick={() => { PageNavigation('/') }}>Home</NavItem>
+        <NavItem href='/dashboard' onClick={() => { PageNavigation('/dashboard') }}>Dashboard</NavItem>
+        <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
+        {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}
         {/* </NavWrapper> */}
       </Nav>

@@ -8,6 +8,14 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    @media (min-width: 769px){
+      display: grid;
+      // grid-template-columns: 50% 50%;
+    }
+`
+const SendMeAlerts = styled.div`
+  display: flex;
+  flex-direction:
 `
 
 const SendAlerts = async (user) => {
@@ -20,13 +28,15 @@ const Alerts = ({ alerts, setAlerts }) => {
 
   // this will render the alerts
   return (
-    <Container>
-      {alerts.length > 0 ? (<AlertCard alerts={alerts} setAlerts={setAlerts} />) : (<div>You have no alerts currently</div>)}
-      <div>
+    <>
+      <Container>
+        {alerts.length > 0 ? (<AlertCard alerts={alerts} setAlerts={setAlerts} />) : (<div>You have no alerts currently</div>)}
+      </Container>
+      <SendMeAlerts>
         You can also get an email containing all of your alerts sent to your inbox!
         <button onClick={() => { SendAlerts(user) }}>Send me my alerts!</button>
-      </div>
-    </Container>
+      </SendMeAlerts>
+    </>
   )
 }
 
