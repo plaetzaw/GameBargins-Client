@@ -260,7 +260,7 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
           <Price>Current Price: ${game.salePrice}</Price>
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
         </ItemWrapper>
-        <MetaWrapper>{(game.metacriticLink !== null) && <Score> Metacritic Score {game.metacriticScore} / 100</Score>}</MetaWrapper>
+        <MetaWrapper>{(game.metacriticLink !== null) && <Score>Metacritic Score {game.metacriticScore}/100</Score>}</MetaWrapper>
         {(game.steamCheckerBool === true) &&
           <table>
             <tr>

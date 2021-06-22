@@ -7,6 +7,7 @@ import Close from '../atoms/CloseMenu'
 import Logo from '../atoms/Logo'
 
 const NavBarPlacement = styled.div`
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -43,16 +44,10 @@ const NavItem = styled.li`
     width: auto;
   }
 `
-const Welcome = styled.div`
-  display: flex;
-  margin-right: .5em;
-  float:left;
+const Savings = styled.div`
+  margin-left: 0.9em;
+  // float:left;
   font-size: 1.2em;
-  width: auto;
-`
-
-const Savings = styled(Welcome)`
-  display: flex;
 `
 
 const LogoutBtn = styled.button`
@@ -63,20 +58,14 @@ const LogoutBtn = styled.button`
 `
 
 const IntroWrapper = styled.div`
-display: ${props => props.open ? 'flex' : 'none'};
-width: ${props => props.open ? 'auto' : '100%'};
-align-items: center;
-padding-left: 1em;
-
-  // width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  display: ${props => props.open ? 'none' : 'flex'};
+  width: ${props => props.open ? 'auto' : '100%'};
+  align-items: center;
+  padding-left: 1em;
   `
 
 const HamburgerWrapper = styled.div`
-  // margin: 2em .8em 0 0;
-  // position: absolute;
+  margin: 1em 0em 0em 0.5em;
   @media(min-width: 801px) {
       display: none;
   }
@@ -102,20 +91,23 @@ const Navbar = () => {
       {mobileOpen === false && <HamburgerWrapper onClick={() => { setMobileOpen(!mobileOpen) }}><Hamburger /></HamburgerWrapper>}
       {mobileOpen && <HamburgerWrapper onClick={() => { setMobileOpen(!mobileOpen) }}><Close /> </HamburgerWrapper>}
       <IntroWrapper open={mobileOpen}>
-        {user && (mobileOpen === false) && <Welcome><div>Welcome {user.username}!</div></Welcome>}
-        {(mobileOpen === false) && <Logo />}
-        {user && (mobileOpen === false) && <Savings><div>Your Savings: ${user.savings}!</div></Savings>}
+        {(mobileOpen === false) && <Logo style={{ paddingTop: '10em' }} />}
+        {user && (mobileOpen === false) &&
+          <Savings>
+            <table>
+              <tr>{user.username} Savings</tr>
+              <tr>${user.savings}!</tr>
+            </table>
+          </Savings>}
       </IntroWrapper>
 
       <Nav open={mobileOpen}>
 
-        {/* <NavWrapper> */}
         <NavItem href='/' onClick={() => { PageNavigation('/') }}>Home</NavItem>
         <NavItem href='/dashboard' onClick={() => { PageNavigation('/dashboard') }}>Dashboard</NavItem>
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}
-        {/* </NavWrapper> */}
       </Nav>
     </NavBarPlacement>
   )

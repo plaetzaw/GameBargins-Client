@@ -14,8 +14,15 @@ const Container = styled.div`
     }
 `
 const SendMeAlerts = styled.div`
-  display: flex;
-  flex-direction:
+    display: block;
+    text-align: center;
+    font-size: 2em;
+`
+const AlertsBtn = styled.button`
+    width: 120px;
+    background-color: violet;
+    // font-size: 2em;
+    // line-height: 2.2em;
 `
 
 const SendAlerts = async (user) => {
@@ -34,7 +41,8 @@ const Alerts = ({ alerts, setAlerts }) => {
       </Container>
       <SendMeAlerts>
         You can also get an email containing all of your alerts sent to your inbox!
-        <button onClick={() => { SendAlerts(user) }}>Send me my alerts!</button>
+        <br />
+        <AlertsBtn onClick={() => { SendAlerts(user) }}>Send me my alerts!</AlertsBtn>
       </SendMeAlerts>
     </>
   )
