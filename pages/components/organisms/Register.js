@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import { useRouter } from 'next/router'
+import { useSnackbar } from 'notistack'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -57,7 +58,9 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [loadinguser, setLoadingUser] = useState(false)
+  const [error, setError] = useState(null)
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
 
   const RegsiterUser = async (e) => {
     try {
@@ -70,14 +73,25 @@ const Register = () => {
       }
       const request = await axios.post('http://localhost:8080/register', RegisterObj)
       console.log(request)
-      const UserObj = {
-        id: request.data.newUser.id,
-        username: request.data.newUser.username,
-        email: request.data.newUser.email
+      if (request.status === 200) {
+        const UserObj = {
+          id: request.data.newUser.id,
+          username: request.data.newUser.username,
+          email: request.data.newUser.email
+        }
+        const message = 'Account created and you have been logged in'
+        enqueueSnackbar(message, {
+          variant: 'success'
+        })
+        setUser(UserObj)
+        router.push('/dashboard')
+        setLoadingUser(false)
+      } else {
+        const message = 'There was an issue with creating your account. Please try again'
+        enqueueSnackbar(message, {
+          variant: 'error'
+        })
       }
-      setUser(UserObj)
-      router.push('/dashboard')
-      setLoadingUser(false)
     } catch (e) {
       console.error(e)
     }

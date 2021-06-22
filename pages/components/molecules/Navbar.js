@@ -60,6 +60,7 @@ const LogoutBtn = styled.button`
 const IntroWrapper = styled.div`
   display: ${props => props.open ? 'none' : 'flex'};
   width: ${props => props.open ? 'auto' : '100%'};
+  flex-direction: row;
   align-items: center;
   padding-left: 1em;
   `
@@ -94,10 +95,10 @@ const Navbar = () => {
         {(mobileOpen === false) && <Logo style={{ paddingTop: '10em' }} />}
         {user && (mobileOpen === false) &&
           <Savings>
-            <table>
-              <tr>{user.username} Savings</tr>
-              <tr>${user.savings}!</tr>
-            </table>
+            {user.username} Savings
+            <br />
+            ${user.savings}!
+            <br />
           </Savings>}
       </IntroWrapper>
 

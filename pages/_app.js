@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import Navbar from './components/molecules/Navbar'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { SnackbarProvider } from 'notistack'
 import { UserContext } from './components/organisms/UserContext'
 
 const GlobalStyle = createGlobalStyle`
@@ -27,9 +28,11 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <Navbar />
-        <Component {...pageProps} />
-        <GlobalStyle />
+        <SnackbarProvider>
+          <Navbar />
+          <Component {...pageProps} />
+          <GlobalStyle />
+        </SnackbarProvider>
       </UserContext.Provider>
 
     </>

@@ -39,6 +39,7 @@ const Home = () => {
         <IntroText>Welcome to GameBargins. This site is designed to help you find the best deals on PC game titles!</IntroText>
         <IntroText>This site is powered by the Cheapshark API.</IntroText>
         <IntroText>We recommend you register to use all of the site's features, however, you may proceed as a guest!</IntroText>
+        <IntroText>To date, we've saved users DB.TotalMoneySaved!</IntroText>
       </TextContainer>
 
       {!user ? (<LoginRegisterWrapper><Login /> <Register /></LoginRegisterWrapper>) : null}

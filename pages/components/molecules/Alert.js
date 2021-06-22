@@ -1,5 +1,7 @@
 import { useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
+import { useSnackbar } from 'notistack'
+
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -33,7 +35,7 @@ const Delete = styled.div`
     color: red;
 `
 
-const DeleteAlert = async (game, user, alerts, setAlerts) => {
+const DeleteAlert = async (game, user, alerts, setAlerts, enqueueSnackbar) => {
   console.log(game.id)
   // Delete the alert in the database
   const DeleteAlertObj = {
@@ -45,16 +47,21 @@ const DeleteAlert = async (game, user, alerts, setAlerts) => {
   }
   console.log(DeleteAlertObj)
   const res = await axios.post('http://localhost:8080/deleteAlert', DeleteAlertObj)
-  // We can use the res to set the snackbar later
-  console.log(res)
-  // Delete the alert from the state
-  const newAlerts = alerts.filter(alert => (alert.id !== game.id))
-  console.log('Updated alerts', newAlerts)
-  setAlerts(newAlerts)
+  if (res.status === 200) {
+    const message = `${DeleteAlertObj.title}has been removed from your favorites`
+    enqueueSnackbar(message, {
+      variant: 'warning'
+    })
+    // Delete the alert from the state
+    const newAlerts = alerts.filter(alert => (alert.id !== game.id))
+    console.log('Updated alerts', newAlerts)
+    setAlerts(newAlerts)
+  }
 }
 
 const Alert = ({ alerts, setAlerts }) => {
   const { user } = useContext(UserContext)
+  const { enqueueSnackbar } = useSnackbar()
 
   // the actual alert
 
@@ -66,7 +73,7 @@ const Alert = ({ alerts, setAlerts }) => {
           <Item>{game.email}</Item>
           <Item>Target Price: ${game.desiredprice}</Item>
           <Item>Price Set At: ${game.setprice}</Item>
-          <Delete onClick={() => { DeleteAlert(game, user, alerts, setAlerts) }}>X</Delete>
+          <Delete onClick={() => { DeleteAlert(game, user, alerts, setAlerts, enqueueSnackbar) }}>X</Delete>
         </DisplayWrapper>
 
       </Card>

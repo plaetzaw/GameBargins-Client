@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../organisms/UserContext'
+import { useSnackbar } from 'notistack'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -129,8 +130,8 @@ const OpenDeal = (dealID) => {
   window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`)
 }
 
-const SetPriceAlert = async (game, user, targetPrice, ToggleWidget) => {
-  console.log(game)
+const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, enqueueSnackbar) => {
+  console.log(enqueueSnackbar)
   const PriceAlertObj = {
     userID: user.id,
     email: user.email,
@@ -142,10 +143,14 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget) => {
   console.log(PriceAlertObj)
   const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
   console.log(postalert)
+  const message = `Price alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}`
+  enqueueSnackbar(message, {
+    variant: 'success'
+  })
   ToggleWidget(game.dealID)
 }
 
-const SaveToFavorites = async (game, user) => {
+const SaveToFavorites = async (game, user, enqueueSnackbar) => {
   const GameObj = {
     userID: user.id,
     title: game.title,
@@ -169,6 +174,10 @@ const SaveToFavorites = async (game, user) => {
   }
   console.log(GameObj)
   const res = await axios.post('http://localhost:8080/createFavorite', GameObj)
+  const message = `${GameObj.title} saved to your favorites!`
+  enqueueSnackbar(message, {
+    variant: 'success'
+  })
   console.log(res)
 }
 
@@ -176,6 +185,7 @@ const GameDealCards = ({ deals }) => {
   const [widget, setWidget] = useState([])
   const [targetPrice, setTargetPrice] = useState()
   const { user } = useContext(UserContext)
+  const { enqueueSnackbar } = useSnackbar()
 
   const ToggleWidget = (id) => {
     console.log(id)
@@ -215,9 +225,9 @@ const GameDealCards = ({ deals }) => {
         <ItemWrapper>
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
-          {user && <Favorite onClick={() => { SaveToFavorites(game, user) }}>Save to Favorites</Favorite>}
+          {user && <Favorite onClick={() => { SaveToFavorites(game, user, enqueueSnackbar) }}>Save to Favorites</Favorite>}
           {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
-          {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
+          {widget.includes(game.dealID) && <Widget><input value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, enqueueSnackbar) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
         </ItemWrapper>
 
       </Card>

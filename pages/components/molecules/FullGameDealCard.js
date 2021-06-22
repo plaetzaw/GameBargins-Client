@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
+import { useSnackbar } from 'notistack'
 import styled from 'styled-components'
 import axios from 'axios'
 import Submit from '../atoms/Submit'
@@ -180,7 +181,7 @@ const OpenDeal = (dealID) => {
   window.open(`https://www.cheapshark.com/redirect?dealID=${dealID}`)
 }
 
-const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setAlerts) => {
+const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setAlerts, enqueueSnackbar) => {
   console.log(alerts)
   const PriceAlertObj = {
     userID: user.id,
@@ -191,25 +192,35 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
     setprice: game.salePrice
   }
   const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
-  console.log(postalert)
-  ToggleWidget(game.dealID)
-  setAlerts(alerts => [...alerts], PriceAlertObj)
-  console.log(alerts)
+  if (postalert.status === 200) {
+    const message = `Alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}!`
+    enqueueSnackbar(message, {
+      variant: 'success'
+    })
+    ToggleWidget(game.dealID)
+    setAlerts(alerts => [...alerts], PriceAlertObj)
+    console.log(alerts)
+  }
 }
 
-const DeleteFavorite = async (id, favorites, setFavorites) => {
+const DeleteFavorite = async (id, favorites, setFavorites, enqueueSnackbar) => {
   console.log(id)
   // Delete the favorite in the database
   const res = await axios.post('http://localhost:8080/deleteFavorite', { id: id })
   // We'll use the res to trigger a snackbar later
-  console.log(res)
-  // Delete the favorite from the state
-  const newFavorites = favorites.filter(favorite => (favorite.id !== id))
-  console.log('Updated favorites', newFavorites)
-  setFavorites(newFavorites)
+  if (res.status === 200) {
+    const message = 'This title has been removed from your favorites'
+    enqueueSnackbar(message, {
+      variant: 'warning'
+    })
+    // Delete the favorite from the state
+    const newFavorites = favorites.filter(favorite => (favorite.id !== id))
+    console.log('Updated favorites', newFavorites)
+    setFavorites(newFavorites)
+  }
 }
 
-const IBoughtIt = async (game, user, setUser, favorites, setFavorites) => {
+const IBoughtIt = async (game, user, setUser, favorites, setFavorites, enqueueSnackbar) => {
   console.log(user)
   // Computes the actual savings, the API provided one seems to have issues
   const savings = game.normalPrice - game.salePrice
@@ -221,6 +232,10 @@ const IBoughtIt = async (game, user, setUser, favorites, setFavorites) => {
     email: user.email,
     savings: savings
   }
+  const message = `You saved $${savings} on ${game.title}. We're glad we could save you money!`
+  enqueueSnackbar(message, {
+    variant: 'info'
+  })
   // Updates the database value for savings
   const updateSavings = await axios.post('http://localhost:8080/updateSavings', UserObj)
   console.log(updateSavings)
@@ -232,6 +247,7 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
   const { user, setUser } = useContext(UserContext)
   const [widget, setWidget] = useState([])
   const [targetPrice, setTargetPrice] = useState()
+  const { enqueueSnackbar } = useSnackbar()
 
   const ToggleWidget = (id) => {
     console.log(id)
@@ -260,7 +276,7 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
           <Price>Current Price: ${game.salePrice}</Price>
           <ListedPrice>Listed Price: ${game.normalPrice}</ListedPrice>
         </ItemWrapper>
-        <MetaWrapper>{(game.metacriticLink !== null) && <Score>Metacritic Score {game.metacriticScore}/100</Score>}</MetaWrapper>
+        <MetaWrapper>{(game.metacriticLink !== null) && <Score> Metacritic Score {game.metacriticScore}/100</Score>}</MetaWrapper>
         {(game.steamCheckerBool === true) &&
           <table>
             <tr>
@@ -277,10 +293,10 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
         <ChoiceWrapper>
           <Deal onClick={() => { OpenDeal(game.dealID) }}>View this deal!</Deal>
           <Metacritic onClick={() => { OpenMetacritic(game.metacriticLink) }}>View on MetaCritic</Metacritic>
-          {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete from favorites</Favorite>}
-          {user && <BoughtIt onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</BoughtIt>}
+          {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites, enqueueSnackbar) }}>Delete from favorites</Favorite>}
+          {user && <BoughtIt onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites, enqueueSnackbar) }}>I bought it</BoughtIt>}
           {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
-          {widget.includes(game.dealID) && <Widget><PriceInput value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}><Submit /></button><button onClick={() => { ToggleWidget(game.dealID) }}><Clear /></button></Widget>}
+          {widget.includes(game.dealID) && <Widget><PriceInput value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts, enqueueSnackbar) }}><Submit /></button><button onClick={() => { ToggleWidget(game.dealID) }}><Clear /></button></Widget>}
         </ChoiceWrapper>
       </Card>
     )
