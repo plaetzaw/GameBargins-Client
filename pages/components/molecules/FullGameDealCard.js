@@ -240,7 +240,7 @@ const IBoughtIt = async (game, user, setUser, favorites, setFavorites, enqueueSn
   const updateSavings = await axios.post('http://localhost:8080/updateSavings', UserObj)
   console.log(updateSavings)
   // Removes the item from the favorites since the user has bought the game
-  DeleteFavorite(game.id, favorites, setFavorites)
+  DeleteFavorite(game.id, favorites, setFavorites, enqueueSnackbar)
 }
 
 const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {

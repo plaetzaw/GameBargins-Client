@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
+import { useSnackbar } from 'notistack'
 import styled from 'styled-components'
 import Hamburger from '../atoms/Hamburger'
 import Close from '../atoms/CloseMenu'
@@ -76,6 +77,7 @@ const Navbar = () => {
   const { user, setUser } = useContext(UserContext)
   const [mobileOpen, setMobileOpen] = useState(false)
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
 
   const PageNavigation = (props) => {
     setMobileOpen(false)
@@ -84,6 +86,10 @@ const Navbar = () => {
 
   const Logout = () => {
     setUser(null)
+    const message = 'You have been logged out! Thanks for visiting!'
+    enqueueSnackbar(message, {
+      variant: 'info'
+    })
     router.push('/')
   }
 
