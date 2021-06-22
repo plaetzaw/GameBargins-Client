@@ -4,6 +4,7 @@ import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import Hamburger from '../atoms/Hamburger'
 import Close from '../atoms/CloseMenu'
+import Logo from '../atoms/Logo'
 
 const NavBarPlacement = styled.div`
   width: 100%;
@@ -21,8 +22,8 @@ const Nav = styled.ul`
   flex-direction: column;
   align-items: center;
   @media(min-width: 801px){
-    display: block;
-    margin-top:1.8em;
+    display: flex;
+    flex-direction: row;
   }
 
 `
@@ -64,6 +65,8 @@ const LogoutBtn = styled.button`
 const IntroWrapper = styled.div`
 display: ${props => props.open ? 'flex' : 'none'};
 width: ${props => props.open ? 'auto' : '100%'};
+align-items: center;
+padding-left: 1em;
 
   // width: 100%;
   display: flex;
@@ -100,6 +103,7 @@ const Navbar = () => {
       {mobileOpen && <HamburgerWrapper onClick={() => { setMobileOpen(!mobileOpen) }}><Close /> </HamburgerWrapper>}
       <IntroWrapper open={mobileOpen}>
         {user && (mobileOpen === false) && <Welcome><div>Welcome {user.username}!</div></Welcome>}
+        {(mobileOpen === false) && <Logo />}
         {user && (mobileOpen === false) && <Savings><div>Your Savings: ${user.savings}!</div></Savings>}
       </IntroWrapper>
 

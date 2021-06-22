@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
+import Submit from '../atoms/Submit'
+import Clear from '../atoms/Clear'
 
 const Container = styled.div`
     display: grid;
@@ -22,18 +24,6 @@ const Container = styled.div`
     }
 
 `
-
-// const Card = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     flex-wrap: wrap;
-//     border: 2px solid;
-//     // background-color: ${props => props.isOnSale ? 'green' : 'yellow'}
-//     background-color: ${props => props.isOnSale ? '#FF6464' : '#ffffff'};
-
-//     // width: 150px;
-//     // height: 75px;
-// `
 
 const Card = styled.div`
     display: flex;
@@ -180,6 +170,7 @@ const Widget = styled(Deal)`
 `
 const PriceInput = styled.input`
     width: 60%;
+    min-height: 27px;
 `
 
 const OpenMetacritic = (metacritic) => {
@@ -289,7 +280,7 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
           {user && <Favorite onClick={() => { DeleteFavorite(game.id, favorites, setFavorites) }}>Delete from favorites</Favorite>}
           {user && <BoughtIt onClick={() => { IBoughtIt(game, user, setUser, favorites, setFavorites) }}>I bought it</BoughtIt>}
           {user && <PriceAlert onClick={() => { ToggleWidget(game.dealID) }}>Set Price Alert</PriceAlert>}
-          {widget.includes(game.dealID) && <Widget><PriceInput value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}>Confirm</button><button onClick={() => { ToggleWidget(game.dealID) }}>Clear</button></Widget>}
+          {widget.includes(game.dealID) && <Widget><PriceInput value={targetPrice} onChange={(e) => { setTargetPrice(e.target.value) }} placeholder={game.salePrice} /><button onClick={() => { SetPriceAlert(game, user, targetPrice, ToggleWidget, alerts, setAlerts) }}><Submit /></button><button onClick={() => { ToggleWidget(game.dealID) }}><Clear /></button></Widget>}
         </ChoiceWrapper>
       </Card>
     )
