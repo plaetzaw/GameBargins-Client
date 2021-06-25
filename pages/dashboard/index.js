@@ -35,11 +35,13 @@ const Dashboard = () => {
   useEffect(async () => {
     try {
       console.log('current provider', provider)
+      const authURL = 'http://localhost:8080/auth'
       const storeURL = 'http://localhost:8080/getStores'
       const dealsURL = 'http://localhost:8080/getDeals'
       const pagedata = await Promise.all([
         axios.post(storeURL),
-        axios.post(dealsURL, { storeID: provider })
+        axios.post(dealsURL, { storeID: provider }),
+        axios.post(authURL, {}, { withCredentials: true })
       ])
       const setdata = await Promise.all([
         setStores(pagedata[0].data), setDeals(pagedata[1].data)

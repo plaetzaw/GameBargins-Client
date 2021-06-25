@@ -14,13 +14,14 @@ const LoginRegisterWrapper = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1em;
+  margin: 2em;
 `
 const IntroText = styled.div`
   display: flex;
   width: 100%;
   font-size: 1.1em;
   padding: 0.5em 0 0.5em 0;
+  text-align: center;
 `
 
 const Home = () => {
@@ -39,7 +40,7 @@ const Home = () => {
         <IntroText>Welcome to GameBargins. This site is designed to help you find the best deals on PC game titles!</IntroText>
         <IntroText>This site is powered by the Cheapshark API.</IntroText>
         <IntroText>We recommend you register to use all of the site's features, however, you may proceed as a guest!</IntroText>
-        <IntroText>To date, we've saved users DB.TotalMoneySaved!</IntroText>
+        {/* <IntroText>To date, we've saved users DB.TotalMoneySaved!</IntroText> */}
       </TextContainer>
 
       {!user ? (<LoginRegisterWrapper><Login /> <Register /></LoginRegisterWrapper>) : null}

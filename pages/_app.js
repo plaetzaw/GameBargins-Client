@@ -1,8 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Navbar from './components/molecules/Navbar'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { SnackbarProvider } from 'notistack'
 import { UserContext } from './components/organisms/UserContext'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -22,6 +24,20 @@ a {
 function MyApp ({ Component, pageProps }) {
   const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    const token = Cookies.get('jwt')
+    if (token) {
+      const jwt = jwtDecode(token)
+      console.log(jwt)
+      setUser({
+        id: jwt.id,
+        username: jwt.username,
+        email: jwt.email,
+        savings: jwt.moneysaved,
+        token: jwt.token
+      })
+    }
+  }, [])
   // const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
   // console.log(user)
 
