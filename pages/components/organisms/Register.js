@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
-import axios from 'axios'
+import axios from '../../utility/axios'
 
 const Container = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const Register = () => {
           id: request.data.user.id,
           username: request.data.user.username,
           email: request.data.user.email,
-          savings: request.data.user.savings
+          savings: request.data.user.moneysaved
         }
         const message = 'Account created and you have been logged in'
         enqueueSnackbar(message, {
