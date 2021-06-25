@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import axios from '../../utility/axios'
 // import { Whirly } from 'css-spinners-react'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 const Container = styled.div`
   display: flex;
@@ -61,7 +63,6 @@ const Login = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const LoginUser = async (e) => {
-    console.log('hello?')
     try {
       e.preventDefault()
       setLoadingUser(true)
@@ -69,9 +70,11 @@ const Login = () => {
         email: email,
         password: password
       }
-      console.log('halp')
       const request = await axios.post('http://localhost:8080/login', LoginObj)
       console.log(request)
+      const jwt = Cookies.get('jwt')
+      console.log(jwtDecode(jwt))
+
       // if (request.status === 200) {
       const message = 'You have been logged in'
       enqueueSnackbar(message, {

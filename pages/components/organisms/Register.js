@@ -75,9 +75,10 @@ const Register = () => {
       console.log(request)
       if (request.status === 200) {
         const UserObj = {
-          id: request.data.newUser.id,
-          username: request.data.newUser.username,
-          email: request.data.newUser.email
+          id: request.data.user.id,
+          username: request.data.user.username,
+          email: request.data.user.email,
+          savings: request.data.user.savings
         }
         const message = 'Account created and you have been logged in'
         enqueueSnackbar(message, {

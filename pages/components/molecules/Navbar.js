@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../organisms/UserContext'
 import { useSnackbar } from 'notistack'
+import Cookies from 'js-cookie'
 import styled from 'styled-components'
 import Hamburger from '../atoms/Hamburger'
 import Close from '../atoms/CloseMenu'
@@ -86,9 +87,12 @@ const Navbar = () => {
   }
 
   const Logout = async () => {
+    Cookies.remove('jwt')
+    Cookies.remove('refresh')
     setUser(null)
-    const res = await axios.post('http://localhost:8080/Logout', user)
-    console.log(res)
+    // const res = await axios.post('http://localhost:8080/Logout', user)
+    // console.log(res)
+
     const message = 'You have been logged out! Thanks for visiting!'
     enqueueSnackbar(message, {
       variant: 'info'
