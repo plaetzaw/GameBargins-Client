@@ -1,4 +1,5 @@
-export const marks = [
+
+const marks = [
   {
     value: 0,
     label: '$0'
@@ -52,3 +53,5 @@ export const marks = [
     label: '$60'
   }
 ]
+
+export default marks

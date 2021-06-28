@@ -20,8 +20,6 @@ const Spinner = styled.div`
   align-items: center;
   justify-content: center;
 `
-const Title = styled.div`
-`
 
 const HeaderText = styled.div`
   font-size: 2em;
@@ -54,7 +52,7 @@ const Button = styled.button`
 `
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const [loadinguser, setLoadingUser] = useState(false)
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
@@ -73,29 +71,27 @@ const Login = () => {
       const request = await axios.post('http://localhost:8080/login', LoginObj)
       console.log(request)
       const jwt = Cookies.get('jwt')
-      console.log(jwtDecode(jwt))
-
-      // if (request.status === 200) {
-      const message = 'You have been logged in'
-      enqueueSnackbar(message, {
-        variant: 'success'
-      })
-      const UserObj = {
-        id: request.data.user.id,
-        username: request.data.user.name,
-        email: request.data.user.email,
-        savings: request.data.user.moneysaved,
-        token: request.data.token
+      const token = jwtDecode(jwt)
+      if (request.status === 200) {
+        const message = 'You have been logged in'
+        enqueueSnackbar(message, {
+          variant: 'success'
+        })
+        const UserObj = {
+          id: token.id,
+          username: token.name,
+          email: token.email,
+          savings: token.moneysaved
+        }
+        setUser(UserObj)
+        router.push('/dashboard')
+        setLoadingUser(false)
+      } else {
+        const message = 'There was an issue with your login, please try again'
+        enqueueSnackbar(message, {
+          variant: 'error'
+        })
       }
-      setUser(UserObj)
-      router.push('/dashboard')
-      setLoadingUser(false)
-      // } else {
-      //   const message = 'There was an issue with your login, please try again'
-      //   enqueueSnackbar(message, {
-      //     variant: 'error'
-      //   })
-      // }
     } catch (e) {
       console.log(e)
       if (e.status === 404) {

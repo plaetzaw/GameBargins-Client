@@ -5,6 +5,8 @@ import { useSnackbar } from 'notistack'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 import axios from '../../utility/axios'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 const Container = styled.div`
   display: flex;
@@ -58,7 +60,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [loadinguser, setLoadingUser] = useState(false)
-  const [error, setError] = useState(null)
+  // const [error, setError] = useState(null)
   const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
 
@@ -73,12 +75,14 @@ const Register = () => {
       }
       const request = await axios.post('http://localhost:8080/register', RegisterObj)
       console.log(request)
+      const jwt = Cookies.get('jwt')
+      const token = jwtDecode(jwt)
       if (request.status === 200) {
         const UserObj = {
-          id: request.data.user.id,
-          username: request.data.user.username,
-          email: request.data.user.email,
-          savings: request.data.user.moneysaved
+          id: token.id,
+          username: token.username,
+          email: token.email,
+          savings: token.moneysaved
         }
         const message = 'Account created and you have been logged in'
         enqueueSnackbar(message, {
