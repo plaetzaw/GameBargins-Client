@@ -21,8 +21,28 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
+export async function getServerSideProps (context) {
+  const stores = await axios.post('http://localhost:8080/getStores')
+  const deals = await axios.post('http://localhost:8080/getDeals', { storeID: 1 })
+  // const data = await res.json()
+  // console.log(context, 'whats coming in?')
+  // console.log(context)
+  console.log(stores, deals)
+  // if (!data) {
+  //   return {
+  //     notFound: true
+  //   }
+  // }
 
-const Dashboard = () => {
+  return {
+    props: {
+      stores: stores.data,
+      deals: deals.data
+    } // will be passed to the page component as props
+  }
+}
+
+const Dashboard = (props) => {
   const [stores, setStores] = useState(null)
   const [deals, setDeals] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -46,10 +66,15 @@ const Dashboard = () => {
       const setdata = await Promise.all([
         setStores(pagedata[0].data), setDeals(pagedata[1].data)
       ])
+
+      // const setdata = await Promise.all([
+      //   setStores(props.stores), setDeals(props.deals)
+      // ])
+
       // setStores(pagedata[0])
       // setDeals(pagedata[1])
-      console.log('here are the stores', pagedata[0])
-      console.log('current deals', provider, pagedata[1])
+      // console.log('here are the stores', pagedata[0])
+      // console.log('current deals', provider, pagedata[1])
       // if (deals && stores) {
       //   setLoading(false)
       //   setError(false)
