@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 import CircularProgress from '@material-ui/core/CircularProgress'

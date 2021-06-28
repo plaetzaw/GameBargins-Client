@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import styled from 'styled-components'
 import axios from 'axios'
 import AlertCard from '../molecules/Alert'

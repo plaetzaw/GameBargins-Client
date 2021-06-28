@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Navbar from './components/molecules/Navbar'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { SnackbarProvider } from 'notistack'
-import { UserContext } from './components/organisms/UserContext'
+import UserContext from './components/organisms/UserContext'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 

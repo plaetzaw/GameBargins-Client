@@ -6,7 +6,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 // atoms
-import { UserContext } from '../components/organisms/UserContext'
+import UserContext from '../components/organisms/UserContext'
 
 // molecules
 import FullGameCard from '../components/molecules/FullGameDealCard'

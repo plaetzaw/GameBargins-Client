@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useSnackbar } from 'notistack'
 import Cookies from 'js-cookie'
 import styled from 'styled-components'

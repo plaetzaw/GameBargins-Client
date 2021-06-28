@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { UserContext } from './components/organisms/UserContext'
+import UserContext from './components/organisms/UserContext'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Login from './components/organisms/Login'

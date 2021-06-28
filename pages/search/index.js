@@ -2,7 +2,7 @@ import {
   useState
   // useContext
 } from 'react'
-// import { UserContext } from '../components/organisms/UserContext'
+// import UserContext from '../components/organisms/UserContext'
 import { Slider, Switch } from '@material-ui/core'
 
 import Select from 'react-select'

@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 // import Head from 'next/head
 
 // Atoms
-// import { UserContext } from '../components/organisms/UserContext'
+// import UserContext from '../components/organisms/UserContext'
 
 // Molecules
 import StoreCard from '../components/molecules/StoreCard'
