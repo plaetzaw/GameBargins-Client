@@ -139,7 +139,7 @@ const Search = () => {
       sort: type
     }
     console.log('Serach Payload', SearchObj)
-    const res = await axios.post('http://localhost:8080/advancedSearch', SearchObj)
+    const res = await axios.post('https://gamebargins.herokuapp.com/advancedSearch', SearchObj)
     setSearchData(res.data)
     setShowResults(true)
     console.log('Search Data', searchData)

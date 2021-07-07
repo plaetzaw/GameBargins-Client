@@ -141,7 +141,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, enqueueSnack
     setprice: game.salePrice
   }
   console.log(PriceAlertObj)
-  const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
+  const postalert = await axios.post('https://gamebargins.herokuapp.com/setAlert', PriceAlertObj)
   console.log(postalert)
   const message = `Price alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}`
   enqueueSnackbar(message, {
@@ -173,7 +173,7 @@ const SaveToFavorites = async (game, user, enqueueSnackbar) => {
     thumb: game.thumb
   }
   console.log(GameObj)
-  const res = await axios.post('http://localhost:8080/createFavorite', GameObj)
+  const res = await axios.post('https://gamebargins.herokuapp.com/', GameObj)
   const message = `${GameObj.title} saved to your favorites!`
   enqueueSnackbar(message, {
     variant: 'success'

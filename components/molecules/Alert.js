@@ -46,7 +46,7 @@ const DeleteAlert = async (game, user, alerts, setAlerts, enqueueSnackbar) => {
     desiredprice: game.desiredprice
   }
   console.log(DeleteAlertObj)
-  const res = await axios.post('http://localhost:8080/deleteAlert', DeleteAlertObj)
+  const res = await axios.post('https://gamebargins.herokuapp.com/deleteAlert', DeleteAlertObj)
   if (res.status === 200) {
     const message = `${DeleteAlertObj.title}has been removed from your favorites`
     enqueueSnackbar(message, {

@@ -90,7 +90,7 @@ const Navbar = () => {
     Cookies.remove('jwt')
     Cookies.remove('refresh')
     setUser(null)
-    // const res = await axios.post('http://localhost:8080/Logout', user)
+    // const res = await axios.post('https://gamebargins.herokuapp.com/Logout', user)
     // console.log(res)
 
     const message = 'You have been logged out! Thanks for visiting!'

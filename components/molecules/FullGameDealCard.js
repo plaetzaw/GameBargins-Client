@@ -191,7 +191,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
     title: game.title,
     setprice: game.salePrice
   }
-  const postalert = await axios.post('http://localhost:8080/setAlert', PriceAlertObj)
+  const postalert = await axios.post('https://gamebargins.herokuapp.com/setAlert', PriceAlertObj)
   if (postalert.status === 200) {
     const message = `Alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}!`
     enqueueSnackbar(message, {
@@ -206,7 +206,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
 const DeleteFavorite = async (id, favorites, setFavorites, enqueueSnackbar) => {
   console.log(id)
   // Delete the favorite in the database
-  const res = await axios.post('http://localhost:8080/deleteFavorite', { id: id })
+  const res = await axios.post('https://gamebargins.herokuapp.com/deleteFavorite', { id: id })
   // We'll use the res to trigger a snackbar later
   if (res.status === 200) {
     const message = 'This title has been removed from your favorites'
@@ -237,7 +237,7 @@ const IBoughtIt = async (game, user, setUser, favorites, setFavorites, enqueueSn
     variant: 'info'
   })
   // Updates the database value for savings
-  const updateSavings = await axios.post('http://localhost:8080/updateSavings', UserObj)
+  const updateSavings = await axios.post('https://gamebargins.herokuapp.com/updateSavings', UserObj)
   console.log(updateSavings)
   // Removes the item from the favorites since the user has bought the game
   DeleteFavorite(game.id, favorites, setFavorites, enqueueSnackbar)

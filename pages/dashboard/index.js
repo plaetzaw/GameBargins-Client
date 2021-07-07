@@ -22,8 +22,8 @@ align-items: center;
 justify-content: center;
 `
 // export async function getServerSideProps () {
-//   const stores = await axios.post('http://localhost:8080/getStores')
-//   const deals = await axios.post('http://localhost:8080/getDeals', { storeID: 1 })
+//   const stores = await axios.post('https://gamebargins.herokuapp.com/getStores')
+//   const deals = await axios.post('https://gamebargins.herokuapp.com/getDeals', { storeID: 1 })
 
 //   console.log(stores, deals)
 //   if (!stores || !deals) {
@@ -52,9 +52,9 @@ const Dashboard = (props) => {
     // console.log(props)
     try {
       console.log('current provider', provider)
-      // const authURL = 'http://localhost:8080/auth'
-      const storeURL = 'http://localhost:8080/getStores'
-      const dealsURL = 'http://localhost:8080/getDeals'
+      // const authURL = 'https://gamebargins.herokuapp.com/auth'
+      const storeURL = 'https://gamebargins.herokuapp.com/getStores'
+      const dealsURL = 'https://gamebargins.herokuapp.com/getDeals'
       const pagedata = await Promise.all([
         axios.post(storeURL),
         axios.post(dealsURL, { storeID: provider })

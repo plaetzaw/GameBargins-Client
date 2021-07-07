@@ -32,8 +32,8 @@ const FavoritesPage = () => {
       if (!user) {
         setError('Please log-in to view your favorites')
       }
-      const getFavorites = 'http://localhost:8080/viewFavorites'
-      const getAlerts = 'http://localhost:8080/getAlerts'
+      const getFavorites = 'https://gamebargins.herokuapp.com/viewFavorites'
+      const getAlerts = 'https://gamebargins.herokuapp.com/getAlerts'
       // const FavoritesData = await Promise.all([axios.post(getFavorites, { userID: user.id })], axios.post(getAlerts, { userID: user.id }))
       // const SetFavoritesData = await Promise.all([setFavorites(FavoritesData[0].data)], setAlerts(FavoritesData[1].data))
       // const results = await axios.post(url, { userID: user.id })
