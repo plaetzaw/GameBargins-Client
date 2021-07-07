@@ -68,10 +68,15 @@ const Login = () => {
         email: email,
         password: password
       }
+      // const request = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, LoginObj)
       const request = await axios.post('https://gamebargins.herokuapp.com/login', LoginObj)
-      console.log(request)
-      const jwt = Cookies.get('jwt')
-      const token = jwtDecode(jwt)
+
+      console.log(request.data.accesstoken)
+      // const jwt = Cookies.get('jwt')
+      // console.log('this is the cookie', jwt)
+      // const token = jwtDecode(jwt)
+      const token = jwtDecode(request.data.accesstoken)
+      console.log(token)
       if (request.status === 200) {
         const message = 'You have been logged in'
         enqueueSnackbar(message, {
