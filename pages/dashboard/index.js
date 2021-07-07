@@ -67,7 +67,7 @@ const Dashboard = (props) => {
 
       setStores(pagedata[0].data)
       setDeals(pagedata[1].data)
-      if (deals && stores) {
+      if (pagedata) {
         setLoading(false)
         setError(false)
       }
