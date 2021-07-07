@@ -21,18 +21,16 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
-export async function getServerSideProps (context) {
+export async function getServerSideProps () {
   const stores = await axios.post('http://localhost:8080/getStores')
   const deals = await axios.post('http://localhost:8080/getDeals', { storeID: 1 })
-  // const data = await res.json()
-  // console.log(context, 'whats coming in?')
-  // console.log(context)
+
   console.log(stores, deals)
-  // if (!data) {
-  //   return {
-  //     notFound: true
-  //   }
-  // }
+  if (!stores || !deals) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
@@ -53,18 +51,23 @@ const Dashboard = (props) => {
   // console.log(provider)
 
   useEffect(async () => {
+    console.log(props)
     try {
       console.log('current provider', provider)
-      const authURL = 'http://localhost:8080/auth'
+      // const authURL = 'http://localhost:8080/auth'
       const storeURL = 'http://localhost:8080/getStores'
       const dealsURL = 'http://localhost:8080/getDeals'
       const pagedata = await Promise.all([
         axios.post(storeURL),
-        axios.post(dealsURL, { storeID: provider }),
-        axios.post(authURL, {}, { withCredentials: true })
+        axios.post(dealsURL, { storeID: provider })
+        // axios.post(authURL, {}, { withCredentials: true })
       ])
+      // I don't think this works
+      // if (!stores || !deals) {
+      //   await Promise.all([setStores(props.stores), setDeals(props.deals)])
+      // }
       const setdata = await Promise.all([
-        setStores(pagedata[0].data), setDeals(pagedata[1].data)
+        setStores(props.stores), setDeals(props.deals)
       ])
 
       // const setdata = await Promise.all([
@@ -73,12 +76,6 @@ const Dashboard = (props) => {
 
       // setStores(pagedata[0])
       // setDeals(pagedata[1])
-      // console.log('here are the stores', pagedata[0])
-      // console.log('current deals', provider, pagedata[1])
-      // if (deals && stores) {
-      //   setLoading(false)
-      //   setError(false)
-      // }
       if (setdata) {
         setLoading(false)
         setError(false)
@@ -92,7 +89,7 @@ const Dashboard = (props) => {
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <h1>Dashboard Page</h1>
-      {stores && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
+      {stores && <StoreCard props={props.stores} stores={stores} provider={provider} setProvider={setProvider} />}
       {stores && !loading && <GamesCard deals={deals} />}
     </>
   )
