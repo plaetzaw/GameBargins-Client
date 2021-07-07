@@ -1,12 +1,10 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
-// import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 import axios from '../../utility/axios'
-// import { Whirly } from 'css-spinners-react'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
@@ -15,18 +13,21 @@ const Container = styled.div`
   flex-direction: column;
   width: 50%;
 `
+
 const Spinner = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `
-const Title = styled.div`
-`
-
 const HeaderText = styled.div`
   font-size: 2em;
   font-weight: 700;
   text-align: center;
+`
+
+const Form = styled.form`
+  color: grey;
+  border: 3px soild grey;
 `
 
 const Label = styled.div`
@@ -53,73 +54,71 @@ const Button = styled.button`
   justify-content: center;
 `
 
-const Login = () => {
-  const { user, setUser } = useContext(UserContext)
-  const [loadinguser, setLoadingUser] = useState(false)
-  const [error, setError] = useState(null)
+const Register = () => {
+  const { setUser } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [loadinguser, setLoadingUser] = useState(false)
+  // const [error, setError] = useState(null)
   const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
 
-  const LoginUser = async (e) => {
+  const RegsiterUser = async (e) => {
     try {
       e.preventDefault()
       setLoadingUser(true)
-      const LoginObj = {
+      const RegisterObj = {
         email: email,
+        username: username,
         password: password
       }
-      const request = await axios.post('http://localhost:8080/login', LoginObj)
+      const request = await axios.post('http://localhost:8080/register', RegisterObj)
       console.log(request)
       const jwt = Cookies.get('jwt')
-      console.log(jwtDecode(jwt))
-
-      // if (request.status === 200) {
-      const message = 'You have been logged in'
-      enqueueSnackbar(message, {
-        variant: 'success'
-      })
-      const UserObj = {
-        id: request.data.user.id,
-        username: request.data.user.name,
-        email: request.data.user.email,
-        savings: request.data.user.moneysaved,
-        token: request.data.token
-      }
-      setUser(UserObj)
-      router.push('/dashboard')
-      setLoadingUser(false)
-      // } else {
-      //   const message = 'There was an issue with your login, please try again'
-      //   enqueueSnackbar(message, {
-      //     variant: 'error'
-      //   })
-      // }
-    } catch (e) {
-      console.log(e)
-      if (e.status === 404) {
-        setError(e)
-        const message = 'User not found'
+      const token = jwtDecode(jwt)
+      if (request.status === 200) {
+        const UserObj = {
+          id: token.id,
+          username: token.username,
+          email: token.email,
+          savings: token.moneysaved
+        }
+        const message = 'Account created and you have been logged in'
+        enqueueSnackbar(message, {
+          variant: 'success'
+        })
+        setUser(UserObj)
+        router.push('/dashboard')
+        setLoadingUser(false)
+      } else {
+        const message = 'There was an issue with creating your account. Please try again'
         enqueueSnackbar(message, {
           variant: 'error'
         })
       }
+    } catch (e) {
+      console.error(e)
     }
   }
-
   return (
     <Container>
-      <HeaderText>Already a user?</HeaderText>
-      {error}
+      <HeaderText>New to our site?</HeaderText>
       {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
 
-      <form>
+      <Form>
         <Label>Email</Label>
         <Input
           value={email}
           onChange={(e) => { setEmail(e.target.value) }}
           placeholder='Email'
+        />
+        <Label>Username</Label>
+        <Input
+          value={username}
+          onChange={(e) => { setUsername(e.target.value) }}
+          placeholder='Username'
+
         />
         <Label>Password</Label>
         <Input
@@ -128,10 +127,10 @@ const Login = () => {
           placeholder='Password'
           type='password'
         />
-        <Button onClick={LoginUser}>Login</Button>
-      </form>
+        <Button onClick={RegsiterUser}>Register</Button>
+      </Form>
     </Container>
   )
 }
 
-export default Login
+export default Register

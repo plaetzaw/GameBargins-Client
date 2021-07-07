@@ -48,7 +48,8 @@ const Logo = styled.img`
     padding: 0.3em 0 0.5em 0;
 `
 
-const StoreCard = ({ stores, provider, setProvider }) => {
+const StoreCard = ({ props, stores, provider, setProvider }) => {
+  // console.log(props)
   const NewStore = (store) => {
     setProvider(store)
     console.log(provider)

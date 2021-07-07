@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useSnackbar } from 'notistack'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -182,6 +182,7 @@ const SaveToFavorites = async (game, user, enqueueSnackbar) => {
 }
 
 const GameDealCards = ({ deals }) => {
+  console.log('here is the deals data', deals)
   const [widget, setWidget] = useState([])
   const [targetPrice, setTargetPrice] = useState()
   const { user } = useContext(UserContext)

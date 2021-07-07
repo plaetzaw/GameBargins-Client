@@ -2,7 +2,7 @@ import {
   useState
   // useContext
 } from 'react'
-// import { UserContext } from '../components/organisms/UserContext'
+// import UserContext from '../components/organisms/UserContext'
 import { Slider, Switch } from '@material-ui/core'
 
 import Select from 'react-select'
@@ -12,7 +12,7 @@ import axios from 'axios'
 // Atoms
 
 // Organisms
-import SearchResults from '../components/organisms/SearchResults'
+import SearchResults from '../../components/organisms/SearchResults'
 
 const Container = styled.div`
   display: flex;

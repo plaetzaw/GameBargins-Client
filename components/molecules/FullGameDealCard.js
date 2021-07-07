@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useSnackbar } from 'notistack'
 import styled from 'styled-components'
 import axios from 'axios'

@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../organisms/UserContext'
+import UserContext from '../organisms/UserContext'
 import { useSnackbar } from 'notistack'
 import Cookies from 'js-cookie'
 import styled from 'styled-components'
 import Hamburger from '../atoms/Hamburger'
 import Close from '../atoms/CloseMenu'
 import Logo from '../atoms/Logo'
-import axios from '../../utility/axios'
+// import axios from '../../utility/axios'
 
 const NavBarPlacement = styled.div`
   position: relative;
