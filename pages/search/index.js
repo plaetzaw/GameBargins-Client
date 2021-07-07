@@ -12,7 +12,7 @@ import axios from 'axios'
 // Atoms
 
 // Organisms
-import SearchResults from '../components/organisms/SearchResults'
+import SearchResults from '../../components/organisms/SearchResults'
 
 const Container = styled.div`
   display: flex;

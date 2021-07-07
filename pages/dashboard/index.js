@@ -13,8 +13,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 // import UserContext from '../components/organisms/UserContext'
 
 // Molecules
-import StoreCard from '../components/molecules/StoreCard'
-import GamesCard from '../components/molecules/GameDealCards'
+import StoreCard from '../../components/molecules/StoreCard'
+import GamesCard from '../../components/molecules/GameDealCards'
 
 const Spinner = styled.div`
 display: flex;

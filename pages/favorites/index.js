@@ -6,13 +6,13 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 // atoms
-import UserContext from '../components/organisms/UserContext'
+import UserContext from '../../components/organisms/UserContext'
 
 // molecules
-import FullGameCard from '../components/molecules/FullGameDealCard'
+import FullGameCard from '../../components/molecules/FullGameDealCard'
 
 // organisms
-import Alerts from '../components/organisms/Alerts'
+import Alerts from '../../components/organisms/Alerts'
 
 const Spinner = styled.div`
 display: flex;
