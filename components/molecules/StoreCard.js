@@ -49,13 +49,13 @@ const Logo = styled.img`
 `
 
 const StoreCard = ({ props, stores, provider, setProvider }) => {
-  console.log(props)
+  // console.log(props)
   const NewStore = (store) => {
     setProvider(store)
     console.log(provider)
   }
 
-  const Markup = props.map((store) => {
+  const Markup = stores.map((store) => {
     return (
       <Card key={store.storeID}>
         <Title>{store.storeName}</Title>
