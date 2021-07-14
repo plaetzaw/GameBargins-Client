@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import Hamburger from '../atoms/Hamburger'
 import Close from '../atoms/CloseMenu'
 import Logo from '../atoms/Logo'
-// import axios from '../../utility/axios'
+import axios from '../../utility/axios'
 
 const NavBarPlacement = styled.div`
   position: relative;
@@ -87,16 +87,13 @@ const Navbar = () => {
   }
 
   const Logout = async () => {
-    Cookies.remove('jwt')
-    Cookies.remove('refresh')
+    // Cookies.remove('jwt')
     setUser(null)
-    // const res = await axios.post('https://gamebargins.herokuapp.com/Logout', user)
-    // console.log(res)
-
     const message = 'You have been logged out! Thanks for visiting!'
     enqueueSnackbar(message, {
       variant: 'info'
     })
+    // axios.get('http://localhost:8080/logout')
     router.push('/')
   }
 
@@ -108,7 +105,7 @@ const Navbar = () => {
         {(mobileOpen === false) && <Logo style={{ paddingTop: '10em' }} />}
         {user && (mobileOpen === false) &&
           <Savings>
-            {user.username} Savings
+            {user.username}'s Savings
             <br />
             ${user.savings}!
             <br />
@@ -122,6 +119,7 @@ const Navbar = () => {
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}
+        <a href='http://localhost:8080/logout'>Logout</a>
       </Nav>
     </NavBarPlacement>
   )

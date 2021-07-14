@@ -26,7 +26,10 @@ function MyApp ({ Component, pageProps }) {
   useEffect(() => {
     const findUser = async () => {
       if (!user) {
-        const res = await axios.post('https://gamebargins.herokuapp.com/auth')
+        const res = await axios.post('http://localhost:8080/auth')
+        if (res.status === 201) {
+          return
+        }
         console.log('auth endpoint response', res)
         setUser({
           id: res.data.userdata.id,
