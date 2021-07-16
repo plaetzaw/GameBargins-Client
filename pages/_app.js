@@ -25,8 +25,12 @@ function MyApp ({ Component, pageProps }) {
 
   useEffect(() => {
     const findUser = async () => {
+      // const url = props.SERVER_URL
+      // console.log(url)
       if (!user) {
+        // const res = await axios.post(props.SERVER_URL + '/auth')
         const res = await axios.post('http://localhost:8080/auth')
+
         if (res.status === 201) {
           return
         }

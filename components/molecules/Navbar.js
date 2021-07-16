@@ -74,8 +74,17 @@ const HamburgerWrapper = styled.div`
       display: none;
   }
 `
+export async function getStaticProps (context) {
+  console.log('Message at build-time')
+  return {
+    props: {
+      SERVER_URL: process.env.local.SERVER_URL
+    }
+  }
+}
 
-const Navbar = () => {
+const Navbar = (props) => {
+  console.log(props)
   const { user, setUser } = useContext(UserContext)
   const [mobileOpen, setMobileOpen] = useState(false)
   const router = useRouter()
@@ -87,13 +96,13 @@ const Navbar = () => {
   }
 
   const Logout = async () => {
-    // Cookies.remove('jwt')
+    Cookies.remove('jwt')
     setUser(null)
     const message = 'You have been logged out! Thanks for visiting!'
     enqueueSnackbar(message, {
       variant: 'info'
     })
-    // axios.get('http://localhost:8080/logout')
+    // axios.get('https://gamebargins.herokuapp.com/logout')
     router.push('/')
   }
 
@@ -119,7 +128,7 @@ const Navbar = () => {
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}
-        <a href='http://localhost:8080/logout'>Logout</a>
+        <NavItem><LogoutBtn><a href='http://localhost:8080/logout'>Logout</a></LogoutBtn></NavItem>
       </Nav>
     </NavBarPlacement>
   )
