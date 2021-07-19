@@ -173,7 +173,7 @@ const SaveToFavorites = async (game, user, enqueueSnackbar) => {
     thumb: game.thumb
   }
   console.log(GameObj)
-  const res = await axios.post('https://gamebargins.herokuapp.com/', GameObj)
+  const res = await axios.post('https://gamebargins.herokuapp.com/createFavorite', GameObj)
   const message = `${GameObj.title} saved to your favorites!`
   enqueueSnackbar(message, {
     variant: 'success'
