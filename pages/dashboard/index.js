@@ -1,7 +1,4 @@
-import {
-  useState, useEffect
-  // useContext
-} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 // import { Whirly } from 'css-spinners-react'
@@ -25,21 +22,6 @@ justify-content: center;
 //   const stores = await axios.post('https://gamebargins.herokuapp.com/getStores')
 //   const deals = await axios.post('https://gamebargins.herokuapp.com/getDeals', { storeID: 1 })
 
-//   console.log(stores, deals)
-//   if (!stores || !deals) {
-//     return {
-//       notFound: true
-//     }
-//   }
-
-//   return {
-//     props: {
-//       stores: stores.data,
-//       deals: deals.data
-//     } // will be passed to the page component as props
-//   }
-// }
-
 const Dashboard = (props) => {
   const [stores, setStores] = useState(null)
   const [deals, setDeals] = useState(null)
@@ -49,21 +31,13 @@ const Dashboard = (props) => {
   // const { user } = useContext(UserContext)
 
   useEffect(async () => {
-    // console.log(props)
     try {
-      console.log('current provider', provider)
-      // const authURL = 'https://gamebargins.herokuapp.com/auth'
       const storeURL = 'https://gamebargins.herokuapp.com/getStores'
       const dealsURL = 'https://gamebargins.herokuapp.com/getDeals'
       const pagedata = await Promise.all([
         axios.post(storeURL),
         axios.post(dealsURL, { storeID: provider })
-        // axios.post(authURL, {}, { withCredentials: true })
       ])
-
-      // const setdata = await Promise.all([
-      //   setStores(props.stores), setDeals(props.deals)
-      // ])
 
       setStores(pagedata[0].data)
       setDeals(pagedata[1].data)

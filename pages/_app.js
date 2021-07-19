@@ -32,7 +32,6 @@ function MyApp ({ Component, pageProps }) {
         if (res.status === 201) {
           return
         }
-        console.log('auth endpoint response', res)
         // Decode the users JWT
         setUser({
           id: res.data.userdata.id,
@@ -44,22 +43,8 @@ function MyApp ({ Component, pageProps }) {
     }
 
     findUser()
-
-    // const token = Cookies.get('jwt')
-    // if (token) {
-    //   const jwt = jwtDecode(token)
-    //   console.log(jwt)
-    //   setUser({
-    //     id: jwt.id,
-    //     username: jwt.username,
-    //     email: jwt.email,
-    //     savings: jwt.moneysaved,
-    //     token: jwt.token
-    //   })
-    // }
   }, [])
   // const uservalue = useMemo(() => ({ user, setUser }), [user, setUser])
-  // console.log(user)
 
   return (
     <>

@@ -24,7 +24,6 @@ const IntroText = styled.div`
   text-align: center;
 `
 export async function getStaticProps (context) {
-  console.log('Message at build-time')
   return {
     props: {
       SERVER_URL: process.env.SERVER_URL
@@ -33,7 +32,7 @@ export async function getStaticProps (context) {
 }
 
 const Home = (props) => {
-  console.log(props)
+  // console.log(props)
   const { user } = useContext(UserContext)
   // I'll render the introtext component alone when removing the login and register
   return (

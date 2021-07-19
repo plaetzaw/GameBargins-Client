@@ -70,12 +70,7 @@ const Login = () => {
       }
       const request = await axios.post('https://gamebargins.herokuapp.com/login', LoginObj)
 
-      console.log(request.data.accesstoken)
-      // const jwt = Cookies.get('jwt')
-      // console.log('this is the cookie', jwt)
-      // const token = jwtDecode(jwt)
       const token = jwtDecode(request.data.accesstoken)
-      console.log(token)
       if (request.status === 200) {
         const message = 'You have been logged in'
         enqueueSnackbar(message, {
@@ -97,7 +92,6 @@ const Login = () => {
         })
       }
     } catch (e) {
-      console.log(e)
       if (e.status === 404) {
         setError(e)
         const message = 'User not found'

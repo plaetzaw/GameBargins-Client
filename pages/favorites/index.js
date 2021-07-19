@@ -54,9 +54,6 @@ const FavoritesPage = () => {
     // Passing the length of the array, instead of the array itself, this prevents infinite re-renders
   }, [favorites.length, alerts.length])
 
-  console.log('here are your favorites', favorites)
-  console.log('here are your alerts', alerts)
-
   return (
     <>
       {error && <div><h1>{error}</h1></div>}
