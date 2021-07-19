@@ -35,7 +35,7 @@ function MyApp ({ Component, pageProps }) {
         // Decode the users JWT
         setUser({
           id: res.data.userdata.id,
-          username: res.data.userdata.username,
+          username: res.data.userdata.name,
           email: res.data.userdata.email,
           savings: res.data.userdata.moneysaved
         })
