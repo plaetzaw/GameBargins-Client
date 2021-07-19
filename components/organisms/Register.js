@@ -5,7 +5,6 @@ import { useSnackbar } from 'notistack'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 import axios from '../../utility/axios'
-import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 const Container = styled.div`
@@ -74,12 +73,11 @@ const Register = () => {
         password: password
       }
       const request = await axios.post('https://gamebargins.herokuapp.com/register', RegisterObj)
-      const jwt = Cookies.get('jwt')
-      const token = jwtDecode(jwt)
+      const token = jwtDecode(request.data.accesstoken)
       if (request.status === 200) {
         const UserObj = {
           id: token.id,
-          username: token.username,
+          username: token.name,
           email: token.email,
           savings: token.moneysaved
         }
