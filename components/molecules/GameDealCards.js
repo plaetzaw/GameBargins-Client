@@ -131,7 +131,6 @@ const OpenDeal = (dealID) => {
 }
 
 const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, enqueueSnackbar) => {
-  console.log(enqueueSnackbar)
   const PriceAlertObj = {
     userID: user.id,
     email: user.email,
@@ -140,9 +139,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, enqueueSnack
     title: game.title,
     setprice: game.salePrice
   }
-  console.log(PriceAlertObj)
-  const postalert = await axios.post('https://gamebargins.herokuapp.com/setAlert', PriceAlertObj)
-  console.log(postalert)
+  await axios.post('https://gamebargins.herokuapp.com/setAlert', PriceAlertObj)
   const message = `Price alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}`
   enqueueSnackbar(message, {
     variant: 'success'
@@ -172,32 +169,26 @@ const SaveToFavorites = async (game, user, enqueueSnackbar) => {
     dealRating: game.dealRating,
     thumb: game.thumb
   }
-  console.log(GameObj)
-  const res = await axios.post('https://gamebargins.herokuapp.com/createFavorite', GameObj)
+  await axios.post('https://gamebargins.herokuapp.com/createFavorite', GameObj)
   const message = `${GameObj.title} saved to your favorites!`
   enqueueSnackbar(message, {
     variant: 'success'
   })
-  console.log(res)
 }
 
 const GameDealCards = ({ deals }) => {
-  console.log('here is the deals data', deals)
   const [widget, setWidget] = useState([])
   const [targetPrice, setTargetPrice] = useState()
   const { user } = useContext(UserContext)
   const { enqueueSnackbar } = useSnackbar()
 
   const ToggleWidget = (id) => {
-    console.log(id)
     if (widget.includes(id) === false) {
       setWidget([...widget, id])
-      console.log('The open array items are', widget)
     } else {
       // find the position of this integer
       const idposition = widget.indexOf(id)
       setWidget(widget.filter((_, i) => i !== idposition))
-      console.log('The open array items are', widget)
     }
   }
 

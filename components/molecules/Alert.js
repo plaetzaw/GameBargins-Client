@@ -36,7 +36,6 @@ const Delete = styled.div`
 `
 
 const DeleteAlert = async (game, user, alerts, setAlerts, enqueueSnackbar) => {
-  console.log(game.id)
   // Delete the alert in the database
   const DeleteAlertObj = {
     id: game.id,
@@ -45,7 +44,6 @@ const DeleteAlert = async (game, user, alerts, setAlerts, enqueueSnackbar) => {
     gameID: game.gameID,
     desiredprice: game.desiredprice
   }
-  console.log(DeleteAlertObj)
   const res = await axios.post('https://gamebargins.herokuapp.com/deleteAlert', DeleteAlertObj)
   if (res.status === 200) {
     const message = `${DeleteAlertObj.title}has been removed from your favorites`
@@ -54,7 +52,7 @@ const DeleteAlert = async (game, user, alerts, setAlerts, enqueueSnackbar) => {
     })
     // Delete the alert from the state
     const newAlerts = alerts.filter(alert => (alert.id !== game.id))
-    console.log('Updated alerts', newAlerts)
+    ('Updated alerts', newAlerts)
     setAlerts(newAlerts)
   }
 }

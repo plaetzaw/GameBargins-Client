@@ -75,7 +75,7 @@ const HamburgerWrapper = styled.div`
   }
 `
 export async function getStaticProps (context) {
-  console.log('Message at build-time')
+  // console.log('Message at build-time')
   return {
     props: {
       SERVER_URL: process.env.local.SERVER_URL

@@ -182,7 +182,6 @@ const OpenDeal = (dealID) => {
 }
 
 const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setAlerts, enqueueSnackbar) => {
-  console.log(alerts)
   const PriceAlertObj = {
     userID: user.id,
     email: user.email,
@@ -199,12 +198,10 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
     })
     ToggleWidget(game.dealID)
     setAlerts(alerts => [...alerts], PriceAlertObj)
-    console.log(alerts)
   }
 }
 
 const DeleteFavorite = async (id, favorites, setFavorites, enqueueSnackbar) => {
-  console.log(id)
   // Delete the favorite in the database
   const res = await axios.post('https://gamebargins.herokuapp.com/deleteFavorite', { id: id })
   // We'll use the res to trigger a snackbar later
@@ -215,13 +212,11 @@ const DeleteFavorite = async (id, favorites, setFavorites, enqueueSnackbar) => {
     })
     // Delete the favorite from the state
     const newFavorites = favorites.filter(favorite => (favorite.id !== id))
-    console.log('Updated favorites', newFavorites)
     setFavorites(newFavorites)
   }
 }
 
 const IBoughtIt = async (game, user, setUser, favorites, setFavorites, enqueueSnackbar) => {
-  console.log(user)
   // Computes the actual savings, the API provided one seems to have issues
   const savings = game.normalPrice - game.salePrice
   // Updates the Global state for savings
@@ -237,8 +232,7 @@ const IBoughtIt = async (game, user, setUser, favorites, setFavorites, enqueueSn
     variant: 'info'
   })
   // Updates the database value for savings
-  const updateSavings = await axios.post('https://gamebargins.herokuapp.com/updateSavings', UserObj)
-  console.log(updateSavings)
+  await axios.post('https://gamebargins.herokuapp.com/updateSavings', UserObj)
   // Removes the item from the favorites since the user has bought the game
   DeleteFavorite(game.id, favorites, setFavorites, enqueueSnackbar)
 }
@@ -250,15 +244,12 @@ const FullGameCard = ({ favorites, setFavorites, alerts, setAlerts }) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const ToggleWidget = (id) => {
-    console.log(id)
     if (widget.includes(id) === false) {
       setWidget([...widget, id])
-      console.log('The open array items are', widget)
     } else {
       // find the position of this integer
       const idposition = widget.indexOf(id)
       setWidget(widget.filter((_, i) => i !== idposition))
-      console.log('The open array items are', widget)
     }
   }
 

@@ -26,8 +26,7 @@ const AlertsBtn = styled.button`
 `
 
 const SendAlerts = async (user) => {
-  const res = await axios.post('https://gamebargins.herokuapp.com/sendAlertsToEmail', { email: user.email })
-  console.log(res)
+  await axios.post('https://gamebargins.herokuapp.com/sendAlertsToEmail', { email: user.email })
 }
 
 const Alerts = ({ alerts, setAlerts }) => {
