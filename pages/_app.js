@@ -25,16 +25,15 @@ function MyApp ({ Component, pageProps }) {
 
   useEffect(() => {
     const findUser = async () => {
-      // const url = props.SERVER_URL
-      // console.log(url)
       if (!user) {
-        // const res = await axios.post(props.SERVER_URL + '/auth')
         const res = await axios.post('http://localhost:8080/auth')
 
+        // The user does not have a JWT, that's okay
         if (res.status === 201) {
           return
         }
         console.log('auth endpoint response', res)
+        // Decode the users JWT
         setUser({
           id: res.data.userdata.id,
           username: res.data.userdata.username,

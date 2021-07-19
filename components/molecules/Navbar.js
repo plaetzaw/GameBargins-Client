@@ -83,8 +83,7 @@ export async function getStaticProps (context) {
   }
 }
 
-const Navbar = (props) => {
-  console.log(props)
+const Navbar = () => {
   const { user, setUser } = useContext(UserContext)
   const [mobileOpen, setMobileOpen] = useState(false)
   const router = useRouter()
