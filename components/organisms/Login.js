@@ -68,9 +68,7 @@ const Login = () => {
         email: email,
         password: password
       }
-      // const request = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, LoginObj)
-      // const request = await axios.post('https://gamebargins.herokuapp.com/login', LoginObj)
-      const request = await axios.post('http://localhost:8080/login', LoginObj)
+      const request = await axios.post('https://gamebargins.herokuapp.com//login', LoginObj)
 
       console.log(request.data.accesstoken)
       // const jwt = Cookies.get('jwt')

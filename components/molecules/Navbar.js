@@ -101,8 +101,8 @@ const Navbar = () => {
     enqueueSnackbar(message, {
       variant: 'info'
     })
-    // axios.get('https://gamebargins.herokuapp.com/logout')
-    router.push('/')
+    router.push('https://gamebargins.herokuapp.com/logout')
+    // router.push('http://localhost:8080/logout')
   }
 
   return (
@@ -127,7 +127,7 @@ const Navbar = () => {
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}
-        <NavItem><LogoutBtn><a href='http://localhost:8080/logout'>Logout</a></LogoutBtn></NavItem>
+        {/* <NavItem><LogoutBtn><a href='https://gamebargins.herokuapp.com/logout'>Logout</a></LogoutBtn></NavItem> */}
       </Nav>
     </NavBarPlacement>
   )

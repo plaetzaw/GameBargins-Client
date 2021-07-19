@@ -26,7 +26,7 @@ function MyApp ({ Component, pageProps }) {
   useEffect(() => {
     const findUser = async () => {
       if (!user) {
-        const res = await axios.post('http://localhost:8080/auth')
+        const res = await axios.post('https://gamebargins.herokuapp.com/auth')
 
         // The user does not have a JWT, that's okay
         if (res.status === 201) {
