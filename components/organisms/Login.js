@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import axios from '../../utility/axios'
 // import { Whirly } from 'css-spinners-react'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 const Container = styled.div`
