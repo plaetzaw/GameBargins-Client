@@ -14,10 +14,15 @@ import FullGameCard from '../../components/molecules/FullGameDealCard'
 // organisms
 import Alerts from '../../components/organisms/Alerts'
 
+const Title = styled.h1`
+  text-align: center;
+  font-size: 2.1em;
+`
+
 const Spinner = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const FavoritesPage = () => {
@@ -58,10 +63,10 @@ const FavoritesPage = () => {
     <>
       {error && <span><h1>{error}</h1></span>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
-      <h1>Your Favorites</h1>
+      <Title>Your Favorites</Title>
       {!favorites && <p>To access your favorites, please log-in!</p>}
       {favorites.length > 0 && !loading ? (<FullGameCard favorites={favorites} setFavorites={setFavorites} alerts={alerts} setAlerts={setAlerts} />) : (<div>You have no favorites currently</div>)}
-      <h1>Your Price Alerts</h1>
+      <Title>Your Price Alerts</Title>
       {alerts && !loading && <Alerts alerts={alerts} setAlerts={setAlerts} />}
     </>
 

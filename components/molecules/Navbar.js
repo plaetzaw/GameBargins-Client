@@ -94,7 +94,6 @@ const Navbar = () => {
   }
 
   const Logout = async () => {
-    // Cookies.remove('jwt')
     setUser(null)
     const message = 'You have been logged out! Thanks for visiting!'
     enqueueSnackbar(message, {
@@ -122,7 +121,7 @@ const Navbar = () => {
       <Nav open={mobileOpen}>
 
         <NavItem href='/' onClick={() => { PageNavigation('/') }}>Home</NavItem>
-        <NavItem href='/dashboard' onClick={() => { PageNavigation('/dashboard') }}>Dashboard</NavItem>
+        <NavItem href='/dashboard' onClick={() => { PageNavigation('/dashboard') }}>Discovery</NavItem>
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}

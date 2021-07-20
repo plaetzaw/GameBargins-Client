@@ -43,10 +43,6 @@ export async function getStaticProps (context) {
   }
 }
 
-const OpenCheapshark = () => {
-  window.open('https://apidocs.cheapshark.com/')
-}
-
 const Home = (props) => {
   // console.log(props)
   const { user } = useContext(UserContext)

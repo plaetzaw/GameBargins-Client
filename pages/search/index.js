@@ -20,6 +20,11 @@ const Container = styled.div`
   padding: 1em;
 `
 
+const Title = styled.h1`
+  text-align: center;
+  font-size: 2.1em;
+`
+
 const Label = styled.div`
   display: flex;
   font-weight: bold;
@@ -164,7 +169,7 @@ const Search = () => {
 
   return (
     <Container>
-      <h1>Search Page</h1>
+      <Title>Search</Title>
       <SearchControllersContainer>
 
         <Label>Search Title</Label>

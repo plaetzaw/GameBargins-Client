@@ -13,14 +13,16 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import StoreCard from '../../components/molecules/StoreCard'
 import GamesCard from '../../components/molecules/GameDealCards'
 
-const Spinner = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+const Title = styled.h1`
+  text-align: center;
+  font-size: 2.1em;
 `
-// export async function getServerSideProps () {
-//   const stores = await axios.post('https://gamebargins.herokuapp.com/getStores')
-//   const deals = await axios.post('https://gamebargins.herokuapp.com/getDeals', { storeID: 1 })
+
+const Spinner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const Dashboard = (props) => {
   const [stores, setStores] = useState(null)
@@ -53,7 +55,7 @@ const Dashboard = (props) => {
     <>
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
-      <h1>Dashboard Page</h1>
+      <Title>Discovery</Title>
       {stores && !loading && <StoreCard stores={stores} provider={provider} setProvider={setProvider} />}
       {deals && !loading && <GamesCard deals={deals} />}
     </>
