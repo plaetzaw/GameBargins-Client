@@ -121,7 +121,7 @@ const Navbar = () => {
       <Nav open={mobileOpen}>
 
         <NavItem href='/' onClick={() => { PageNavigation('/') }}>Home</NavItem>
-        <NavItem href='/dashboard' onClick={() => { PageNavigation('/dashboard') }}>Discovery</NavItem>
+        <NavItem href='/dashboard' onClick={() => { PageNavigation('/discovery') }}>Discovery</NavItem>
         <NavItem href='/search' onClick={() => { PageNavigation('/search') }}>Search</NavItem>
         {user && <NavItem href='/favorites' onClick={() => { PageNavigation('/favorites') }}>Favorites</NavItem>}
         {user && <NavItem><LogoutBtn onClick={() => { Logout() }}>Logout</LogoutBtn></NavItem>}

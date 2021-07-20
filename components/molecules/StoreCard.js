@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 const Container = styled.div`
     display: grid;
     grid-template-columns: 50% 50%;
+    padding-bottom: 4em;
     @media (min-width: 380px) {
       display: flex;
       flex-direction: row;
@@ -19,8 +20,11 @@ const Card = styled.div`
     display: flex;
     flex-direction: column;
     padding: 1em;
-    border: 2px solid;
+    border: solid;
     max-width: 150px;
+    background-color: #C0C0C0;
+    // width: 120px;
+
 `
 const Title = styled.span`
     text-align: center;
@@ -33,6 +37,7 @@ const Title = styled.span`
 
 const Logo = styled.img`
     max-height: 150px;
+    // width: 75px;
     padding: 0.3em 0 0.5em 0;
 `
 
@@ -58,7 +63,6 @@ const StoreCard = ({ stores, provider, setProvider }) => {
 
   return (
     <>
-      {/* <h1>Select the store you want to view deals from</h1> */}
       <Container>
         {Markup}
       </Container>
