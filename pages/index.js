@@ -15,13 +15,25 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2em;
+  @media (min-width: 769px) { 
+    height: ${props => props.user ? '75vh' : 'auto'};
+  }
 `
-const IntroText = styled.div`
+const Greeting = styled.h1`
+  text-align: center;
+  font-size: 2em;
+`
+
+const IntroText = styled.p`
   display: flex;
   width: 100%;
-  font-size: 1.1em;
-  padding: 0.5em 0 0.5em 0;
+  font-size: 1.2em;
+  line-height: 1.4em;
   text-align: center;
+  @media (min-width: 769px) { 
+    font-size: 1.8em;
+    line-height: 2.0em;
+  }
 `
 export async function getStaticProps (context) {
   return {
@@ -29,6 +41,10 @@ export async function getStaticProps (context) {
       SERVER_URL: process.env.SERVER_URL
     }
   }
+}
+
+const OpenCheapshark = () => {
+  window.open('https://apidocs.cheapshark.com/')
 }
 
 const Home = (props) => {
@@ -44,11 +60,14 @@ const Home = (props) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <TextContainer>
-        <IntroText>Welcome to GameBargins. This site is designed to help you find the best deals on PC game titles!</IntroText>
-        <IntroText>This site is powered by the Cheapshark API.</IntroText>
-        <IntroText>We recommend you register to use all of the site's features, however, you may proceed as a guest!</IntroText>
-        {/* <IntroText>To date, we've saved users DB.TotalMoneySaved!</IntroText> */}
+      <TextContainer user={user}>
+        <Greeting>Welcome to GameBargins!</Greeting>
+        <IntroText>This site is designed to help you find the best deals on PC game titles!
+          You can sign up for price alerts, which will automiatcally send an alert to your email when
+          a price hits your desired price.
+        </IntroText>
+        <IntroText>We recommend you register to use all of the site's features, however, you may proceed as a guest! This site is powered by the Cheapshark API.
+        </IntroText>
       </TextContainer>
 
       {!user ? (<LoginRegisterWrapper><Login /> <Register /></LoginRegisterWrapper>) : null}

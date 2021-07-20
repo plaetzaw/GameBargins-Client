@@ -30,10 +30,11 @@ const Card = styled.div`
     border: 2px solid;
     padding: 1em;
     margin: 1em;
+    background-color: #e0e0e0;
     // max-width: 250px;
 `
 
-const Title = styled.div`
+const Title = styled.span`
     min-height: 4em;
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +59,7 @@ const Logo = styled.img`
     max-height: 125px; 
 `
 
-const Price = styled.div`
+const Price = styled.span`
     display: flex;
     width: 50%;
     color: green;

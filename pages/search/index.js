@@ -31,10 +31,29 @@ const SearchField = styled.input`
   height: 1.2em;
 `
 
+const SearchBtn = styled.button`
+    display: flex;
+    margin: 2em 0 1em 0;
+    background-color: violet;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    min-height: 3em;
+    width: 10em;
+`
+
 const SearchControllersContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
+const SearchBtnWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const ToggleWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -193,7 +212,7 @@ const Search = () => {
             // orientation='vertical'
           aria-labelledby='discrete-slider-always'
         />
-        <button onClick={Submit}>Search</button>
+        <SearchBtnWrapper><SearchBtn onClick={Submit}>Search</SearchBtn></SearchBtnWrapper>
 
       </SearchControllersContainer>
 

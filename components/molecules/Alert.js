@@ -19,18 +19,19 @@ const Card = styled.div`
 `
 const DisplayWrapper = styled.div`
     display: grid;
-    grid-template-columns: 35% 20% 17.5% 17.5% 10%;
+    // grid-template-columns: 35% 20% 17.5% 17.5% 10%;
+    grid-template-columns: 40% 25% 25% 10%;
 `
 
-const Title = styled.div`
+const Title = styled.span`
     font-size: 1.1em;
     text-align: center;
 `
-const Item = styled.div`
+const Item = styled.span`
     text-align: center;
 `
 
-const Delete = styled.div`
+const Delete = styled.span`
     font-size: 2em;
     color: red;
 `
@@ -67,7 +68,7 @@ const Alert = ({ alerts, setAlerts }) => {
       <Card key={game.id}>
         <DisplayWrapper>
           <Title><b>{game.title}</b></Title>
-          <Item>{game.email}</Item>
+          {/* <Item>{game.email}</Item> */}
           <Item>Target Price: ${game.desiredprice}</Item>
           <Item>Price Set At: ${game.setprice}</Item>
           <Delete onClick={() => { DeleteAlert(game, user, alerts, setAlerts, enqueueSnackbar) }}>X</Delete>

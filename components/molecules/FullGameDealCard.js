@@ -31,19 +31,17 @@ const Card = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     border: 2px solid;
-    // padding: 1em;
-    // margin: 1em;
+    background-color: #e0e0e0;
+
 `
 
-const Title = styled.div`
+const Title = styled.span`
     display: flex;
     min-height: 4em;
     font-size: 2.6em;
     text-align: center;
     align-items: center;
     justify-content: center;
-    // padding: 0 1em 0 1em;
-
 `
 const LogoDisplay = styled.div`
     display: flex;
@@ -51,7 +49,6 @@ const LogoDisplay = styled.div`
     padding: 1em;
     justify-content: center;
     align-content: center;
-    // min-height: 200px;
 `
 
 const Logo = styled.img`
@@ -60,7 +57,7 @@ const Logo = styled.img`
     max-height: 125px; 
 `
 
-const Price = styled.div`
+const Price = styled.span`
     display: flex;
     width: 50%;
     color: green;
@@ -77,7 +74,7 @@ const ListedPrice = styled(Price)`
     // justify-content: flex-end;
 `
 
-const Score = styled.div`
+const Score = styled.span`
     display: flex;
     color: black;
     font-weight: 600;
@@ -103,9 +100,9 @@ const ItemWrapper = styled.div`
 const ChoiceWrapper = styled.div`
     display: grid;
     grid-template-columns: 50% 50%
-    `
+`
 
-const Sale = styled.div`
+const Sale = styled.span`
     display: flex;
     color: black;
     font-weight: 600;
@@ -115,7 +112,7 @@ const Sale = styled.div`
     padding: 0.25em 1em 0.25em 1em;
     min-height: 4em;
 `
-const NotSale = styled.div`
+const NotSale = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,6 +187,7 @@ const SetPriceAlert = async (game, user, targetPrice, ToggleWidget, alerts, setA
     title: game.title,
     setprice: game.salePrice
   }
+  console.log(PriceAlertObj)
   const postalert = await axios.post('https://gamebargins.herokuapp.com/setAlert', PriceAlertObj)
   if (postalert.status === 200) {
     const message = `Alert set for ${PriceAlertObj.title} at ${PriceAlertObj.price}!`

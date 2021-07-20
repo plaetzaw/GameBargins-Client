@@ -4,9 +4,6 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const Container = styled.div`
-    // display: flex;
-    // flex-direction: row;
-    // flex-wrap: wrap;
     display: grid;
     grid-template-columns: 50% 50%;
     @media (min-width: 380px) {
@@ -24,9 +21,8 @@ const Card = styled.div`
     padding: 1em;
     border: 2px solid;
     max-width: 150px;
-
 `
-const Title = styled.div`
+const Title = styled.span`
     text-align: center;
     font-weight: bold;
     font-size: 1.1rem;
@@ -34,17 +30,9 @@ const Title = styled.div`
       font-size: 1.5;
     }
 `
-const Text = styled.div`
-    text-align: center;
-    @media (min-width: 769px) {
-      font-size: 1.2em;
-    }
-`
 
 const Logo = styled.img`
     max-height: 150px;
-    // max-width: 150px;
-
     padding: 0.3em 0 0.5em 0;
 `
 
