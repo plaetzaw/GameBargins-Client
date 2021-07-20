@@ -34,6 +34,23 @@ const SearchField = styled.input`
   display: flex;
   width: 100%;
   height: 1.2em;
+  @media (min-width: 700px) { 
+    width: 57%;
+  }
+`
+
+const SelectWrapper = styled.div`
+  width: 100%;
+  @media (min-width: 700px) { 
+    width: 58%;
+  }
+`
+
+const SliderWrapper = styled.div`
+  width: 100%;
+  @media (min-width: 700px) { 
+    width: 58%;
+} 
 `
 
 const SearchBtn = styled.button`
@@ -169,20 +186,22 @@ const Search = () => {
 
   return (
     <Container>
-      <Title>Search</Title>
+      <Title>Game Search</Title>
       <SearchControllersContainer>
 
-        <Label>Search Title</Label>
+        <Label style={{ paddingTop: '1em', paddingBottom: '0.2em' }}>Search Title</Label>
         <SearchField
           value={searchTitle}
           onChange={(e) => { setSearchTitle(e.target.value) }}
         />
-        <Label style={{ paddingTop: '1em', paddingBottom: '1em' }}>Search Criteria</Label>
-        <Select
-          options={options}
-          value={options.find(obj => obj.value === type)}
-          onChange={(e) => { setType(e.value) }}
-        />
+        <Label style={{ paddingTop: '1em', paddingBottom: '0.2em' }}>Search Criteria</Label>
+        <SelectWrapper>
+          <Select
+            options={options}
+            value={options.find(obj => obj.value === type)}
+            onChange={(e) => { setType(e.value) }}
+          />
+        </SelectWrapper>
         <ToggleWrapper>
           <ToggleItem>
             <Label>Exact title</Label>
@@ -205,18 +224,20 @@ const Search = () => {
             />
           </ToggleItem>
         </ToggleWrapper>
-        <Label style={{ paddingBottom: '2.1em', textAlign: 'center' }}>Price Range</Label>
-        <Slider
-          value={priceRange}
-          onChange={UpdatePrice}
-          marks={marks}
-          step={5}
-          valueLabelDisplay='on'
-          min={0}
-          max={60}
+        <Label style={{ paddingBottom: '2.6em', textAlign: 'center' }}>Price Range</Label>
+        <SliderWrapper>
+          <Slider
+            value={priceRange}
+            onChange={UpdatePrice}
+            marks={marks}
+            step={5}
+            valueLabelDisplay='on'
+            min={0}
+            max={60}
             // orientation='vertical'
-          aria-labelledby='discrete-slider-always'
-        />
+            aria-labelledby='discrete-slider-always'
+          />
+        </SliderWrapper>
         <SearchBtnWrapper><SearchBtn onClick={Submit}>Search</SearchBtn></SearchBtnWrapper>
 
       </SearchControllersContainer>
