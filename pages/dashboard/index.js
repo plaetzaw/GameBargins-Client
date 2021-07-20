@@ -4,7 +4,7 @@ import styled from 'styled-components'
 // import { Whirly } from 'css-spinners-react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-// import Head from 'next/head
+import Head from 'next/head'
 
 // Atoms
 // import UserContext from '../components/organisms/UserContext'
@@ -53,6 +53,12 @@ const Dashboard = (props) => {
   }, [provider])
   return (
     <>
+      <Head>
+        <title>GameBargins || Discovery</title>
+        <meta name='description' content='Find deals on PC games!' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
       {error && <div><h1>{error}</h1></div>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <Title>Discovery</Title>

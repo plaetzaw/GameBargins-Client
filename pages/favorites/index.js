@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Head from 'next/head'
 
 // import { Whirly } from 'css-spinners-react'
 import axios from 'axios'
@@ -61,6 +62,12 @@ const FavoritesPage = () => {
 
   return (
     <>
+      <Head>
+        <title>GameBargins || Favorites</title>
+        <meta name='description' content='Find deals on PC games!' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
       {error && <span><h1>{error}</h1></span>}
       {loading ? (<Spinner><CircularProgress /></Spinner>) : (null)}
       <Title>Your Favorites</Title>

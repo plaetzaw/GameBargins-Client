@@ -9,6 +9,8 @@ import Select from 'react-select'
 import styled from 'styled-components'
 import axios from 'axios'
 
+import Head from 'next/head'
+
 // Atoms
 
 // Organisms
@@ -186,6 +188,12 @@ const Search = () => {
 
   return (
     <Container>
+      <Head>
+        <title>GameBargins || Search</title>
+        <meta name='description' content='Find deals on PC games!' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
       <Title>Game Search</Title>
       <SearchControllersContainer>
 
