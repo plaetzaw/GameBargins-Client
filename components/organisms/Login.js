@@ -50,9 +50,9 @@ const Button = styled.button`
   justify-content: center;
 `
 
-const Login = () => {
+const Login = ({ setLoadingUser }) => {
   const { setUser } = useContext(UserContext)
-  const [loadinguser, setLoadingUser] = useState(false)
+  // const [loadinguser, setLoadingUser] = useState(false)
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -82,7 +82,7 @@ const Login = () => {
           savings: token.moneysaved
         }
         setUser(UserObj)
-        router.push('/dashboard')
+        router.push('/discovery')
         setLoadingUser(false)
       } else {
         const message = 'There was an issue with your login, please try again'
@@ -105,7 +105,7 @@ const Login = () => {
     <Container>
       <HeaderText>Already a user?</HeaderText>
       {error}
-      {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
+      {/* {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)} */}
 
       <form>
         <Label>Email</Label>

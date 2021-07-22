@@ -1,9 +1,16 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import UserContext from '../components/organisms/UserContext'
 import Head from 'next/head'
 import styled from 'styled-components'
 import Login from '../components/organisms/Login'
 import Register from '../components/organisms/Register'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+const Spinner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const LoginRegisterWrapper = styled.div`
   width: 100%;
@@ -43,7 +50,9 @@ export async function getStaticProps (context) {
   }
 }
 
-const Home = (props) => {
+const Home = () => {
+  const [loadinguser, setLoadingUser] = useState(false)
+
   // console.log(props)
   const { user } = useContext(UserContext)
   // I'll render the introtext component alone when removing the login and register
@@ -59,6 +68,7 @@ const Home = (props) => {
       </Head>
 
       <TextContainer user={user}>
+        {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
         <Greeting>Welcome to GameBargins!</Greeting>
         <IntroText>This site is designed to help you find the best deals on PC game titles!
           You can sign up for price alerts, which will automiatcally send an alert to your email when
@@ -68,7 +78,7 @@ const Home = (props) => {
         </IntroText>
       </TextContainer>
 
-      {!user ? (<LoginRegisterWrapper><Login /> <Register /></LoginRegisterWrapper>) : null}
+      {!user ? (<LoginRegisterWrapper><Login setLoadingUser={setLoadingUser} /> <Register setLoadingUser={setLoadingUser} /></LoginRegisterWrapper>) : null}
 
     </div>
   )

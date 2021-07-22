@@ -86,7 +86,7 @@ const Register = () => {
           variant: 'success'
         })
         setUser(UserObj)
-        router.push('/dashboard')
+        router.push('/discovery')
         setLoadingUser(false)
       } else {
         const message = 'There was an issue with creating your account. Please try again'
@@ -101,7 +101,7 @@ const Register = () => {
   return (
     <Container>
       <HeaderText>New to our site?</HeaderText>
-      {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)}
+      {/* {setLoadingUser ? (null) : (<Spinner><CircularProgress />Logging in</Spinner>)} */}
 
       <Form>
         <Label>Email</Label>
